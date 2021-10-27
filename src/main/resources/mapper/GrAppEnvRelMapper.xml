@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrAppEnvRelMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrAppEnvRel">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="VARCHAR" property="oid" />
+        <result column="change_id" jdbcType="VARCHAR" property="changeId"/>
+        <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+        <result column="env_type" jdbcType="VARCHAR" property="envType" />
+        <result column="env_name" jdbcType="VARCHAR" property="envName" />
+        <result column="env_code" jdbcType="VARCHAR" property="envCode" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, oid, change_id, app_code, env_type, env_name, env_code, create_user, create_time, update_user, update_time,
+      delete_flag
+    </sql>
+
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_app_env_rel
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrAppEnvRel">
+      insert into gr_app_env_rel (id, oid, change_id, app_code,env_type, env_name,
+        env_code, create_user, create_time,
+        update_user, update_time, delete_flag
+        )
+      values (#{id,jdbcType=INTEGER}, #{oid,jdbcType=VARCHAR},
+        #{changeId, jdbcType=VARCHAR},
+        #{appCode,jdbcType=VARCHAR},
+        #{envType,jdbcType=VARCHAR},
+        #{envName,jdbcType=VARCHAR},
+        #{envCode,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <insert id="batchInsert">
+        insert into gr_app_env_rel (oid, change_id, app_code, env_type, env_name,
+            env_code, create_user, create_time,
+            update_user, update_time, delete_flag
+        )
+        values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+            (
+                #{item.oid,jdbcType=VARCHAR},
+                #{item.changeId, jdbcType=VARCHAR},
+                #{item.appCode,jdbcType=VARCHAR},
+                #{item.envType,jdbcType=VARCHAR},
+                #{item.envName,jdbcType=VARCHAR},
+                #{item.envCode,jdbcType=VARCHAR},
+                #{item.createUser,jdbcType=VARCHAR},
+                #{item.createTime,jdbcType=TIMESTAMP},
+                #{item.updateUser,jdbcType=VARCHAR},
+                #{item.updateTime,jdbcType=TIMESTAMP},
+                #{item.deleteFlag,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrAppEnvRel">
+        insert into gr_app_env_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="appCode != null">
+                app_code,
+            </if>
+            <if test="envCode != null">
+                env_code,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=VARCHAR},
+            </if>
+            <if test="appCode != null">
+                #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="envCode != null">
+                #{envCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrAppEnvRel">
+        update gr_app_env_rel
+        <set>
+            <if test="oid != null">
+                oid = #{oid,jdbcType=VARCHAR},
+            </if>
+            <if test="appCode != null">
+                app_code = #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="envCode != null">
+                env_code = #{envCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrAppEnvRel">
+      update gr_app_env_rel
+      set oid = #{oid,jdbcType=VARCHAR},
+        app_code = #{appCode,jdbcType=VARCHAR},
+        env_code = #{envCode,jdbcType=VARCHAR},
+        create_user = #{createUser,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_app_env_rel
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="id != null" >
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="oid != null and oid != ''" >
+                and oid = #{oid,jdbcType=VARCHAR}
+            </if>
+            <if test="appCode != null and appCode != ''" >
+                and app_code = #{appCode,jdbcType=VARCHAR}
+            </if>
+            <if test="envCode != null and envCode != ''" >
+                and env_code = #{envCode,jdbcType=VARCHAR}
+            </if>
+            <if test="createUser != null and createUser != ''" >
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null and updateUser != ''" >
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByAppCodeAndEnvCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_app_env_rel
+        where change_id = #{changeId}
+        and app_code = #{appCode}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+    </select>
+
+    <select id="selectByAppCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_app_env_rel
+        <where>
+            <if test="null != appCodeList and appCodeList.size > 0">
+                and app_code in
+                <foreach collection="appCodeList" item="appCode" open="(" separator=","  close=")">
+                    #{appCode}
+                </foreach>
+            </if>
+        </where>
+        group by env_type, env_code
+    </select>
+
+    <select id="selectByEnv" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_app_env_rel
+        where
+        env_type = #{envType}
+        and env_code = #{envCode}
+    </select>
+
+    <select id="selectByEnvType" resultMap="BaseResultMap">
+        select
+        app_code, env_type, env_code, env_name
+        from  gr_app_env_rel
+        where
+        env_type = #{envType} and delete_flag = 0
+        group by env_code, app_code
+    </select>
+
+    <select id="listByAppCodeAndEnvCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_app_env_rel where 1=1
+        <if test="changeId != null  and changeId !=''">
+            and change_id = #{changeId}
+        </if>
+        <if test="appCode != null  and appCode !=''">
+            and app_code = #{appCode}
+        </if>
+        <if test="envType != null  and envType !=''">
+            and env_type = #{envType}
+        </if>
+        <if test="envCode != null  and envCode !=''">
+            and env_code = #{envCode}
+        </if>
+    </select>
+
+    <select id="listByChangeId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from gr_app_env_rel
+        <where>
+            <if test="changeId != null  and changeId !=''">
+                and change_id = #{changeId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByChangeIdAndEnv">
+        delete
+        from  gr_app_env_rel
+        <where>
+            <if test="changeId != null  and changeId !=''">
+                and change_id = #{changeId}
+            </if>
+            <if test="envType != null  and envType !=''">
+                and env_type = #{envType}
+            </if>
+            <if test="envCode != null  and envCode !=''">
+                and env_code = #{envCode}
+            </if>
+        </where>
+    </delete>
+</mapper>

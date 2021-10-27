@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrPublish">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="oid" jdbcType="CHAR" property="oid"/>
+        <result property="publishName" column="publish_name" jdbcType="VARCHAR"/>
+        <result property="publishAuditId" column="publish_audit_id" jdbcType="VARCHAR"/>
+        <result property="publishAuditName" column="publish_audit_name" jdbcType="VARCHAR"/>
+        <result property="changeId" column="change_id" jdbcType="VARCHAR"/>
+        <result property="changeName" column="change_name" jdbcType="VARCHAR"/>
+        <result property="appCode" column="app_code" jdbcType="VARCHAR"/>
+        <result property="appName" column="app_name" jdbcType="VARCHAR"/>
+        <result property="domainArchitectureId" column="domain_architecture_id" jdbcType="VARCHAR"/>
+        <result property="domainArchitectureName" column="domain_architecture_name" jdbcType="VARCHAR"/>
+        <result property="envType" column="env_type" jdbcType="VARCHAR"/>
+        <result property="envCode" column="env_code" jdbcType="VARCHAR"/>
+        <result property="envName" column="env_name" jdbcType="VARCHAR"/>
+        <result property="publishType" column="publish_type" jdbcType="VARCHAR"/>
+        <result property="testStatus" column="test_status" jdbcType="VARCHAR"/>
+        <result property="publishStatus" column="publish_status" jdbcType="VARCHAR"/>
+        <result property="developerName" column="developer_name" jdbcType="VARCHAR"/>
+        <result property="qaName" column="qa_name" jdbcType="VARCHAR"/>
+        <result property="apolloEnv" column="apollo_env" jdbcType="VARCHAR"/>
+        <result property="apolloIdc" column="apollo_idc" jdbcType="VARCHAR"/>
+        <result property="serviceGroupSwitch" column="service_group_switch" jdbcType="VARCHAR"/>
+        <result property="mqGroupSwitch" column="mq_group_switch" jdbcType="VARCHAR"/>
+        <result property="gitBranch" column="git_branch" jdbcType="VARCHAR"/>
+        <result property="gitRepo" column="git_repo" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+        <result property="operatorId" column="operator_id" jdbcType="VARCHAR"/>
+        <result property="releaseTime" column="release_time" jdbcType="TIMESTAMP"/>
+        <result property="buildNum" column="build_num" jdbcType="INTEGER"/>
+        <result property="deploymentRevision" column="deployment_revision" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, oid, publish_name, publish_audit_id, publish_audit_name, change_id, change_name, app_code, app_name,
+        domain_architecture_id, domain_architecture_name, env_type, env_code, env_name, publish_type, test_status,
+        publish_status, developer_name, qa_name, apollo_env, apollo_idc, service_group_switch, mq_group_switch,
+        create_time, create_user, update_time, update_user, delete_flag, git_branch, git_repo, operator_id, release_time,
+        build_num, deployment_revision
+    </sql>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_publish(oid, publish_name, publish_audit_id, publish_audit_name, change_id, change_name, app_code,
+         app_name, domain_architecture_id, domain_architecture_name, env_type, env_code, env_name, publish_type,
+          test_status, publish_status, developer_name, qa_name, apollo_env, apollo_idc, service_group_switch,
+           mq_group_switch, create_time, create_user, update_time, update_user, delete_flag, git_branch, git_repo, operator_id)
+        values (#{oid}, #{publishName}, #{publishAuditId}, #{publishAuditName}, #{changeId}, #{changeName}, #{appCode},
+         #{appName}, #{domainArchitectureId}, #{domainArchitectureName}, #{envType}, #{envCode}, #{envName},
+          #{publishType}, #{testStatus}, #{publishStatus}, #{developerName}, #{qaName}, #{apolloEnv}, #{apolloIdc},
+           #{serviceGroupSwitch}, #{mqGroupSwitch}, #{createTime}, #{createUser}, #{updateTime}, #{updateUser},
+            #{deleteFlag}, #{gitBranch}, #{gitRepo}, #{operatorId}, #{releaseTime})
+    </insert>
+
+    <!--动态新增-->
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrPublish">
+        insert into gr_publish
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="publishName != null and publishName != ''">
+                publish_name,
+            </if>
+            <if test="publishAuditId != null and publishAuditId != ''">
+                publish_audit_id,
+            </if>
+            <if test="publishAuditName != null and publishAuditName != ''">
+                publish_audit_name,
+            </if>
+            <if test="changeId != null and changeId != ''">
+                change_id,
+            </if>
+            <if test="changeName != null and changeName != ''">
+                change_name,
+            </if>
+            <if test="appCode != null and appCode != ''">
+                app_code,
+            </if>
+            <if test="appName != null and appName != ''">
+                app_name,
+            </if>
+            <if test="domainArchitectureId != null and domainArchitectureId != ''">
+                domain_architecture_id,
+            </if>
+            <if test="domainArchitectureName != null and domainArchitectureName != ''">
+                domain_architecture_name,
+            </if>
+            <if test="envType != null and envType != ''">
+                env_type,
+            </if>
+            <if test="envCode != null and envCode != ''">
+                env_code,
+            </if>
+            <if test="envName != null and envName != ''">
+                env_name,
+            </if>
+            <if test="publishType != null and publishType != ''">
+                publish_type,
+            </if>
+            <if test="testStatus != null and testStatus != ''">
+                test_status,
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                publish_status,
+            </if>
+            <if test="developerName != null and developerName != ''">
+                developer_name,
+            </if>
+            <if test="qaName != null and qaName != ''">
+                qa_name,
+            </if>
+            <if test="apolloEnv != null and apolloEnv != ''">
+                apollo_env,
+            </if>
+            <if test="apolloIdc != null and apolloIdc != ''">
+                apollo_idc,
+            </if>
+            <if test="serviceGroupSwitch != null and serviceGroupSwitch != ''">
+                service_group_switch,
+            </if>
+            <if test="mqGroupSwitch != null and mqGroupSwitch != ''">
+                mq_group_switch,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="gitBranch != null">
+                git_branch,
+            </if>
+            <if test="gitRepo != null">
+                git_repo,
+            </if>
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="releaseTime != null">
+                release_time,
+            </if>
+            <if test="buildNum != null">
+                build_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid},
+            </if>
+            <if test="publishName != null and publishName != ''">
+                #{publishName},
+            </if>
+            <if test="publishAuditId != null and publishAuditId != ''">
+                #{publishAuditId},
+            </if>
+            <if test="publishAuditName != null and publishAuditName != ''">
+                #{publishAuditName},
+            </if>
+            <if test="changeId != null and changeId != ''">
+                #{changeId},
+            </if>
+            <if test="changeName != null and changeName != ''">
+                #{changeName},
+            </if>
+            <if test="appCode != null and appCode != ''">
+                #{appCode},
+            </if>
+            <if test="appName != null and appName != ''">
+                #{appName},
+            </if>
+            <if test="domainArchitectureId != null and domainArchitectureId != ''">
+                #{domainArchitectureId},
+            </if>
+            <if test="domainArchitectureName != null and domainArchitectureName != ''">
+                #{domainArchitectureName},
+            </if>
+            <if test="envType != null and envType != ''">
+                #{envType},
+            </if>
+            <if test="envCode != null and envCode != ''">
+                #{envCode},
+            </if>
+            <if test="envName != null and envName != ''">
+                #{envName},
+            </if>
+            <if test="publishType != null and publishType != ''">
+                #{publishType},
+            </if>
+            <if test="testStatus != null and testStatus != ''">
+                #{testStatus},
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                #{publishStatus},
+            </if>
+            <if test="developerName != null and developerName != ''">
+                #{developerName},
+            </if>
+            <if test="qaName != null and qaName != ''">
+                #{qaName},
+            </if>
+            <if test="apolloEnv != null and apolloEnv != ''">
+                #{apolloEnv},
+            </if>
+            <if test="apolloIdc != null and apolloIdc != ''">
+                #{apolloIdc},
+            </if>
+            <if test="serviceGroupSwitch != null and serviceGroupSwitch != ''">
+                #{serviceGroupSwitch},
+            </if>
+            <if test="mqGroupSwitch != null and mqGroupSwitch != ''">
+                #{mqGroupSwitch},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                #{createUser},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                #{updateUser},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag},
+            </if>
+            <if test="gitBranch != null">
+                #{gitBranch},
+            </if>
+            <if test="gitRepo != null">
+                #{gitRepo},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId},
+            </if>
+            <if test="releaseTime != null">
+                #{releaseTime},
+            </if>
+            <if test="buildNum != null">
+                #{buildNum},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询单个-->
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where oid = #{oid}
+    </select>
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null">
+                and oid = #{oid}
+            </if>
+            <if test="publishName != null and publishName != ''">
+                and publish_name = #{publishName}
+            </if>
+            <if test="publishAuditId != null and publishAuditId != ''">
+                and publish_audit_id = #{publishAuditId}
+            </if>
+            <if test="publishAuditName != null and publishAuditName != ''">
+                and publish_audit_name = #{publishAuditName}
+            </if>
+            <if test="changeId != null and changeId != ''">
+                and change_id = #{changeId}
+            </if>
+            <if test="changeName != null and changeName != ''">
+                and change_name = #{changeName}
+            </if>
+            <if test="appCode != null and appCode != ''">
+                and app_code = #{appCode}
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name = #{appName}
+            </if>
+            <if test="domainArchitectureId != null and domainArchitectureId != ''">
+                and domain_architecture_id = #{domainArchitectureId}
+            </if>
+            <if test="domainArchitectureName != null and domainArchitectureName != ''">
+                and domain_architecture_name = #{domainArchitectureName}
+            </if>
+            <if test="envType != null and envType != ''">
+                and env_type = #{envType}
+            </if>
+            <if test="envCode != null and envCode != ''">
+                and env_code = #{envCode}
+            </if>
+            <if test="envName != null and envName != ''">
+                and env_name = #{envName}
+            </if>
+            <if test="publishType != null and publishType != ''">
+                and publish_type = #{publishType}
+            </if>
+            <if test="testStatus != null and testStatus != ''">
+                and test_status = #{testStatus}
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                and publish_status = #{publishStatus}
+            </if>
+            <if test="developerName != null and developerName != ''">
+                and developer_name = #{developerName}
+            </if>
+            <if test="qaName != null and qaName != ''">
+                and qa_name = #{qaName}
+            </if>
+            <if test="apolloEnv != null and apolloEnv != ''">
+                and apollo_env = #{apolloEnv}
+            </if>
+            <if test="apolloIdc != null and apolloIdc != ''">
+                and apollo_idc = #{apolloIdc}
+            </if>
+            <if test="serviceGroupSwitch != null and serviceGroupSwitch != ''">
+                and service_group_switch = #{serviceGroupSwitch}
+            </if>
+            <if test="mqGroupSwitch != null and mqGroupSwitch != ''">
+                and mq_group_switch = #{mqGroupSwitch}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="gitBranch != null">
+                and git_branch = #{gitBranch}
+            </if>
+            <if test="gitRepo != null">
+                and git_repo = #{gitRepo}
+            </if>
+            <if test="releaseTime != null">
+                and release_time = #{releaseTime}
+            </if>
+            <if test="buildNum != null">
+                and build_num = #{buildNum}
+            </if>
+            <if test="deploymentRevision != null">
+                and deployment_revision = #{deploymentRevision}
+            </if>
+            <if test="searchValue != null and searchValue != ''">
+                and (change_name like concat(#{searchValue},"%") or app_code like concat(#{searchValue},"%"))
+            </if>
+        </where>
+    </sql>
+
+    <update id="updatePublishStatusByChangeIdAndEnv">
+        update gr_publish set publish_status = #{targetPublishStatus}
+        where publish_status = #{sourcePublishStatus}
+        and change_id = #{changeId}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="updateDynamic">
+        update gr_publish
+        <set>
+            <if test="oid != null">
+                oid = #{oid},
+            </if>
+            <if test="publishName != null and publishName != ''">
+                publish_name = #{publishName},
+            </if>
+            <if test="publishAuditId != null and publishAuditId != ''">
+                publish_audit_id = #{publishAuditId},
+            </if>
+            <if test="publishAuditName != null and publishAuditName != ''">
+                publish_audit_name = #{publishAuditName},
+            </if>
+            <if test="changeId != null and changeId != ''">
+                change_id = #{changeId},
+            </if>
+            <if test="changeName != null and changeName != ''">
+                change_name = #{changeName},
+            </if>
+            <if test="appCode != null and appCode != ''">
+                app_code = #{appCode},
+            </if>
+            <if test="appName != null and appName != ''">
+                app_name = #{appName},
+            </if>
+            <if test="domainArchitectureId != null and domainArchitectureId != ''">
+                domain_architecture_id = #{domainArchitectureId},
+            </if>
+            <if test="domainArchitectureName != null and domainArchitectureName != ''">
+                domain_architecture_name = #{domainArchitectureName},
+            </if>
+            <if test="envType != null and envType != ''">
+                env_type = #{envType},
+            </if>
+            <if test="envCode != null and envCode != ''">
+                env_code = #{envCode},
+            </if>
+            <if test="envName != null and envName != ''">
+                env_name = #{envName},
+            </if>
+            <if test="publishType != null and publishType != ''">
+                publish_type = #{publishType},
+            </if>
+            <if test="testStatus != null and testStatus != ''">
+                test_status = #{testStatus},
+            </if>
+            <if test="publishStatus != null and publishStatus != ''">
+                publish_status = #{publishStatus},
+            </if>
+            <if test="developerName != null and developerName != ''">
+                developer_name = #{developerName},
+            </if>
+            <if test="qaName != null and qaName != ''">
+                qa_name = #{qaName},
+            </if>
+            <if test="apolloEnv != null and apolloEnv != ''">
+                apollo_env = #{apolloEnv},
+            </if>
+            <if test="apolloIdc != null and apolloIdc != ''">
+                apollo_idc = #{apolloIdc},
+            </if>
+            <if test="serviceGroupSwitch != null and serviceGroupSwitch != ''">
+                service_group_switch = #{serviceGroupSwitch},
+            </if>
+            <if test="mqGroupSwitch != null and mqGroupSwitch != ''">
+                mq_group_switch = #{mqGroupSwitch},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="gitBranch != null">
+                git_branch = #{gitBranch},
+            </if>
+            <if test="gitRepo != null">
+                git_repo = #{gitRepo},
+            </if>
+            <if test="releaseTime != null">
+                release_time = #{releaseTime},
+            </if>
+            <if test="buildNum != null">
+                build_num = #{buildNum},
+            </if>
+            <if test="deploymentRevision != null">
+                deployment_revision = #{deploymentRevision},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrPublish">
+      update gr_publish
+      set
+            oid = #{oid},
+            publish_name = #{publishName},
+            publish_audit_id = #{publishAuditId},
+            publish_audit_name = #{publishAuditName},
+            change_id = #{changeId},
+            change_name = #{changeName},
+            app_code = #{appCode},
+            app_name = #{appName},
+            domain_architecture_id = #{domainArchitectureId},
+            domain_architecture_name = #{domainArchitectureName},
+            env_type = #{envType},
+            env_code = #{envCode},
+            env_name = #{envName},
+            publish_type = #{publishType},
+            test_status = #{testStatus},
+            publish_status = #{publishStatus},
+            developer_name = #{developerName},
+            qa_name = #{qaName},
+            apollo_env = #{apolloEnv},
+            apollo_idc = #{apolloIdc},
+            service_group_switch = #{serviceGroupSwitch},
+            mq_group_switch = #{mqGroupSwitch},
+            create_time = #{createTime},
+            create_user = #{createUser},
+            update_time = #{updateTime},
+            update_user = #{updateUser},
+            delete_flag = #{deleteFlag},
+            git_branch = #{gitBranch},
+            git_repo = #{gitRepo},
+            release_time = #{releaseTime},
+            build_num = #{buildNum},
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrPublish">
+        select
+        <include refid="Base_Column_List"/>
+        from gr_publish
+        <include refid="findPageWithWhere"/>
+        order by id desc
+    </select>
+
+    <select id="lastByPublish" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where app_code = #{appCode}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+        and publish_status = #{publishStatus}
+        and delete_flag = #{deleteFlag}
+        order by id desc limit 1
+    </select>
+
+    <select id="lastByPublishRevision" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where app_code = #{appCode}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+        and publish_status = #{publishStatus}
+        and deployment_revision = #{deploymentRevision}
+        and delete_flag = #{deleteFlag}
+        order by id desc limit 1
+    </select>
+
+    <select id="lastByChangeAndEnv" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from gr_publish
+        where app_code = #{appCode}
+        and change_id = #{changeId}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+        and publish_status = #{publishStatus}
+        and delete_flag = #{deleteFlag}
+        order by id desc limit 1
+    </select>
+
+
+
+    <select id="lastByAppEnv" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where app_code = #{appCode}
+        and env_type = #{envType}
+        and env_code = #{envCode}
+        and delete_flag = #{deleteFlag}
+        order by release_time desc limit 1
+    </select>
+
+    <select id="lastByOperatorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where operator_id = #{operatorId} and delete_flag = #{deleteFlag}
+        order by id desc limit 1
+    </select>
+
+
+    <select id="listByAuditId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish
+        where publish_audit_id = #{publishAuditId} and delete_flag = #{deleteFlag}
+        order by id desc
+    </select>
+
+    <select id="countByPublishStatus" resultType="java.lang.Integer">
+        select count(*) from gr_publish where publish_status = #{publishStatus} and delete_flag = #{deleteFlag}
+    </select>
+
+</mapper>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishAuditMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrPublishAudit">
+        <result column="id" property="id"/>
+        <result column="oid" property="oid"/>
+        <result column="dtalk_process_id" property="dtalkProcessId"/>
+        <result column="publish_name" property="publishName"/>
+        <result column="about_problem" property="aboutProblem"/>
+        <result column="env_type" property="envType"/>
+        <result column="env_code" property="envCode"/>
+        <result column="env_name" property="envName"/>
+        <result column="publish_type" property="publishType"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="publish_desc" property="publishDesc"/>
+        <result column="expect_publish_time" property="expectPublishTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="initiator_id" property="initiatorId"/>
+        <result column="initiator_name" property="initiatorName"/>
+        <result column="publish_apply_url" property="publishApplyUrl"/>
+        <result column="db_change_flag" property="dbChangeFlag"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                oid,
+                dtalk_process_id,
+                publish_name,
+                about_problem,
+                env_type,
+                env_code,
+                env_name,
+                publish_type,
+                audit_status,
+                publish_desc,
+                expect_publish_time,
+                create_time,
+                create_user,
+                update_time,
+                update_user,
+                delete_flag,
+                initiator_id,
+                initiator_name,
+                publish_apply_url,
+                db_change_flag
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+            parameterType="com.choice.cloud.architect.groot.model.GrPublishAudit">
+        INSERT INTO gr_publish_audit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='null != oid'>
+                oid,
+            </if>
+            <if test='null != dtalkProcessId'>
+                dtalk_process_id,
+            </if>
+            <if test='null != publishName'>
+                publish_name,
+            </if>
+            <if test='null != aboutProblem'>
+                about_problem,
+            </if>
+            <if test='null != envType'>
+                env_type,
+            </if>
+            <if test='null != envCode'>
+                env_code,
+            </if>
+            <if test='null != envName'>
+                env_name,
+            </if>
+            <if test='null != publishType'>
+                publish_type,
+            </if>
+            <if test='null != auditStatus'>
+                audit_status,
+            </if>
+            <if test='null != publishDesc'>
+                publish_desc,
+            </if>
+            <if test="null != expectPublishTime">
+                expect_publish_time,
+            </if>
+            <if test='null != createTime'>
+                create_time,
+            </if>
+            <if test='null != createUser'>
+                create_user,
+            </if>
+            <if test='null != updateTime'>
+                update_time,
+            </if>
+            <if test='null != updateUser'>
+                update_user,
+            </if>
+            <if test='null != deleteFlag'>
+                delete_flag,
+            </if>
+            <if test='null != initiatorId'>
+                initiator_id,
+            </if>
+            <if test='null != initiatorName'>
+                initiator_name,
+            </if>
+            <if test='null != publishApplyUrl'>
+                publish_apply_url,
+            </if>
+            <if test='null != dbChangeFlag'>
+                db_change_flag
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='null != oid'>
+                #{oid},
+            </if>
+            <if test='null != dtalkProcessId'>
+                #{dtalkProcessId},
+            </if>
+            <if test='null != publishName'>
+                #{publishName},
+            </if>
+            <if test='null != aboutProblem'>
+                #{aboutProblem},
+            </if>
+            <if test='null != envType'>
+                #{envType},
+            </if>
+            <if test='null != envCode'>
+                #{envCode},
+            </if>
+            <if test='null != envName'>
+                #{envName},
+            </if>
+            <if test='null != publishType'>
+                #{publishType},
+            </if>
+            <if test='null != auditStatus'>
+                #{auditStatus},
+            </if>
+            <if test='null != publishDesc'>
+                #{publishDesc},
+            </if>
+            <if test="null != expectPublishTime">
+                #{expectPublishTime},
+            </if>
+            <if test='null != createTime'>
+                #{createTime},
+            </if>
+            <if test='null != createUser'>
+                #{createUser},
+            </if>
+            <if test='null != updateTime'>
+                #{updateTime},
+            </if>
+            <if test='null != updateUser'>
+                #{updateUser},
+            </if>
+            <if test='null != deleteFlag'>
+                #{deleteFlag},
+            </if>
+            <if test='null != initiatorId'>
+                #{initiatorId},
+            </if>
+            <if test='null != initiatorName'>
+                #{initiatorName},
+            </if>
+            <if test='null != publishApplyUrl'>
+                #{publishApplyUrl},
+            </if>
+            <if test='null != dbChangeFlag'>
+                #{dbChangeFlag}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM gr_publish_audit
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrPublishAudit">
+        UPDATE gr_publish_audit
+        <set>
+            <if test='null != dtalkProcessId'>dtalk_process_id = #{dtalkProcessId},</if>
+            <if test='null != publishName'>publish_name = #{publishName},</if>
+            <if test='null != aboutProblem'>about_problem = #{aboutProblem},</if>
+            <if test='null != envType'>env_type = #{envType},</if>
+            <if test='null != envCode'>env_code = #{envCode},</if>
+            <if test='null != envName'>env_name = #{envName},</if>
+            <if test='null != publishType'>publish_type = #{publishType},</if>
+            <if test='null != auditStatus'>audit_status = #{auditStatus},</if>
+            <if test='null != publishDesc'>publish_desc = #{publishDesc},</if>
+            <if test="null != expectPublishTime">expect_publish_time = #{expectPublish},</if>
+            <if test='null != updateTime'>update_time = #{updateTime},</if>
+            <if test='null != updateUser'>update_user = #{updateUser},</if>
+            <if test='null != deleteFlag'>delete_flag = #{deleteFlag}</if>
+        </set>
+        WHERE oid = #{oid}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gr_publish_audit
+        WHERE oid = #{oid}
+    </select>
+
+    <select id="selectByDtalkProcessId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gr_publish_audit
+        WHERE dtalk_process_id = #{dtalkProcessId}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gr_publish_audit
+        <where>
+            <if test="status != null">
+                and audit_status = #{status}
+            </if>
+            <if test="excludeEnvType != null">
+                and env_type != #{excludeEnvType}
+            </if>
+            <if test="envType != null">
+                and env_type = #{envType}
+            </if>
+            <if test="searchValue != null and searchValue != ''">
+                and (publish_name like concat(#{searchValue},"%") or env_name like concat(#{searchValue},"%"))
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM gr_publish_audit
+    </select>
+
+    <update id="updateAuditStatus">
+        update gr_publish_audit
+        set audit_status = #{auditStatus}
+        where oid = #{oid}
+    </update>
+
+    <select id="getLastAuditByEnv">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM gr_publish_audit
+        WHERE
+            env_type = #{envType}
+        AND env_code = #{envCode}
+        <if test="null != ids and ids.size > 0">
+            AND oid in
+            <foreach collection="ids" item="id" open="(" separator=","  close=")">
+                #{id}
+            </foreach>
+        </if>
+        AND delete_flag = 0
+        order by id desc limit 1
+    </select>
+</mapper>

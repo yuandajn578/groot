@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrFormChangeEnvMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrFormChangeEnv">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="CHAR" property="oid" />
+        <result column="form_id" jdbcType="CHAR" property="formId" />
+        <result column="change_id" jdbcType="CHAR" property="changeId" />
+        <result column="env_id" jdbcType="CHAR" property="envId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+        <result column="auditor_id" jdbcType="CHAR" property="auditorId" />
+        <result column="auditor_time" jdbcType="TIMESTAMP" property="auditorTime" />
+        <result column="create_user" jdbcType="CHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="CHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, oid, form_id, change_id, env_id, status, delete_flag, auditor_id, auditor_time,
+      create_user, create_time, update_user, update_time
+    </sql>
+
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_form_change_env
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrFormChangeEnv">
+      insert into gr_form_change_env (id, oid, form_id, change_id,
+        env_id, status, delete_flag,
+        auditor_id, auditor_time, create_user,
+        create_time, update_user, update_time
+        )
+      values (#{id,jdbcType=INTEGER}, #{oid,jdbcType=CHAR}, #{formId,jdbcType=CHAR}, #{changeId,jdbcType=CHAR},
+        #{envId,jdbcType=CHAR}, #{status,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER},
+        #{auditorId,jdbcType=CHAR}, #{auditorTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=CHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrFormChangeEnv">
+        insert into gr_form_change_env
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="formId != null">
+                form_id,
+            </if>
+            <if test="changeId != null">
+                change_id,
+            </if>
+            <if test="envId != null">
+                env_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="auditorId != null">
+                auditor_id,
+            </if>
+            <if test="auditorTime != null">
+                auditor_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=CHAR},
+            </if>
+            <if test="formId != null">
+                #{formId,jdbcType=CHAR},
+            </if>
+            <if test="changeId != null">
+                #{changeId,jdbcType=CHAR},
+            </if>
+            <if test="envId != null">
+                #{envId,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="auditorId != null">
+                #{auditorId,jdbcType=CHAR},
+            </if>
+            <if test="auditorTime != null">
+                #{auditorTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrFormChangeEnv">
+        update gr_form_change_env
+        <set>
+            <if test="oid != null">
+                oid = #{oid,jdbcType=CHAR},
+            </if>
+            <if test="formId != null">
+                form_id = #{formId,jdbcType=CHAR},
+            </if>
+            <if test="changeId != null">
+                change_id = #{changeId,jdbcType=CHAR},
+            </if>
+            <if test="envId != null">
+                env_id = #{envId,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="auditorId != null">
+                auditor_id = #{auditorId,jdbcType=CHAR},
+            </if>
+            <if test="auditorTime != null">
+                auditor_time = #{auditorTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrFormChangeEnv">
+      update gr_form_change_env
+      set oid = #{oid,jdbcType=CHAR},
+        form_id = #{formId,jdbcType=CHAR},
+        change_id = #{changeId,jdbcType=CHAR},
+        env_id = #{envId,jdbcType=CHAR},
+        status = #{status,jdbcType=INTEGER},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+        auditor_id = #{auditorId,jdbcType=CHAR},
+        auditor_time = #{auditorTime,jdbcType=TIMESTAMP},
+        create_user = #{createUser,jdbcType=CHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=CHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_form_change_env
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="id != null" >
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="oid != null" >
+                and oid = #{oid,jdbcType=CHAR}
+            </if>
+            <if test="formId != null" >
+                and form_id = #{formId,jdbcType=CHAR}
+            </if>
+            <if test="changeId != null" >
+                and change_id = #{changeId,jdbcType=CHAR}
+            </if>
+            <if test="envId != null" >
+                and env_id = #{envId,jdbcType=CHAR}
+            </if>
+            <if test="status != null" >
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+            <if test="auditorId != null" >
+                and auditor_id = #{auditorId,jdbcType=CHAR}
+            </if>
+            <if test="auditorTime != null" >
+                and auditor_time = #{auditorTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null" >
+                and create_user = #{createUser,jdbcType=CHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null" >
+                and update_user = #{updateUser,jdbcType=CHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <delete id="deleteEnv">
+        delete
+        from  gr_form_change_env
+        <where>
+            <if test="envId != null  and envId !=''">
+                and env_id = #{envId}
+            </if>
+        </where>
+    </delete>
+
+</mapper>

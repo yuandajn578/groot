@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishAuditChangeRelMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrPublishAuditChangeRel">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="change_id" jdbcType="VARCHAR" property="changeId" />
+        <result column="publish_audit_id" jdbcType="VARCHAR" property="publishAuditId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, change_id, publish_audit_id, create_time, create_user, update_time, update_user,
+      delete_flag
+    </sql>
+
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_publish_audit_change_rel
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditChangeRel">
+      insert into gr_publish_audit_change_rel (id, change_id, publish_audit_id,
+        create_time, create_user, update_time,
+        update_user, delete_flag)
+      values (#{id,jdbcType=INTEGER}, #{changeId,jdbcType=VARCHAR}, #{publishAuditId,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{updateUser,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=INTEGER})
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditChangeRel">
+        insert into gr_publish_audit_change_rel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="changeId != null">
+                change_id,
+            </if>
+            <if test="publishAuditId != null">
+                publish_audit_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="changeId != null">
+                #{changeId,jdbcType=VARCHAR},
+            </if>
+            <if test="publishAuditId != null">
+                #{publishAuditId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditChangeRel">
+        update gr_publish_audit_change_rel
+        <set>
+            <if test="changeId != null">
+                change_id = #{changeId,jdbcType=VARCHAR},
+            </if>
+            <if test="publishAuditId != null">
+                publish_audit_id = #{publishAuditId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditChangeRel">
+      update gr_publish_audit_change_rel
+      set change_id = #{changeId,jdbcType=VARCHAR},
+        publish_audit_id = #{publishAuditId,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_user = #{createUser,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=VARCHAR},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish_audit_change_rel
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="id != null" >
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="changeId != null and changeId != ''" >
+                and change_id = #{changeId,jdbcType=VARCHAR}
+            </if>
+            <if test="publishAuditId != null and publishAuditId != ''" >
+                and publish_audit_id = #{publishAuditId,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null and createUser != ''" >
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null and updateUser != ''" >
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+
+    <update id="unbindRel">
+        update gr_publish_audit_change_rel
+        set delete_flag = #{deleteFlag},
+        update_user = #{updateUser}
+        where change_id = #{changeId}
+        and publish_audit_id = #{publishAuditId}
+    </update>
+
+    <select id="getByPublishAuditId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish_audit_change_rel
+        where publish_audit_id = #{publishAuditId}
+        and delete_flag = 0
+    </select>
+
+    <select id="getByChangeId">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish_audit_change_rel
+        where change_id = #{changeId}
+        and delete_flag = 0
+    </select>
+
+</mapper>

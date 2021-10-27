@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrBuildRecordMapper">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.GrBuildRecord" id="GrBuildRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="publishOid" column="publish_oid" jdbcType="VARCHAR"/>
+        <result property="buildNum" column="build_num" jdbcType="INTEGER"/>
+        <result property="result" column="result" jdbcType="VARCHAR"/>
+        <result property="buildDesc" column="build_desc" jdbcType="VARCHAR"/>
+        <result property="appCode" column="app_code" jdbcType="VARCHAR"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="VARCHAR"/>
+        <result property="duration" column="duration" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByBuild" resultMap="GrBuildRecordMap">
+        select
+          id, oid, publish_oid, build_num, result, build_desc, app_code, version, job_name,
+          create_time, create_user, update_time, update_user, delete_flag, duration
+        from gr_build_record
+        where job_name = #{jobName} and build_num = #{buildNum} order by id desc limit 1
+    </select>
+
+    <select id="getLastRecordByPublishOid" resultMap="GrBuildRecordMap">
+        select
+          id, oid, publish_oid, build_num, result, build_desc, app_code, version, job_name,
+          create_time, create_user, update_time, update_user, delete_flag, duration
+        from gr_build_record
+        where publish_oid = #{publishOid} order by id desc limit 1
+    </select>
+
+    <select id="getNormalBuildingLastRecord" resultMap="GrBuildRecordMap">
+        select id, oid, publish_oid, build_num, result, build_desc, app_code, version, job_name,
+              create_time, create_user, update_time, update_user, delete_flag, duration
+        from gr_build_record
+        where app_code = #{appCode} and result = #{result} order by id desc limit 5
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_build_record(oid, publish_oid, build_num, result, build_desc, app_code, version, job_name,
+        create_time, create_user, update_time, update_user, delete_flag)
+        values (#{oid}, #{publishOid}, #{buildNum}, #{result}, #{buildDesc}, #{appCode}, #{version}, #{jobName},
+        #{createTime}, #{createUser}, #{updateTime}, #{updateUser}, #{deleteFlag})
+    </insert>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrBuildRecord">
+        select
+            id, oid, publish_oid, build_num, result, build_desc, app_code, version, job_name,
+            create_time, create_user, update_time, update_user, delete_flag, duration
+        from gr_build_record
+        where delete_flag = #{deleteFlag} and publish_oid = #{publishOid} order by id desc
+    </select>
+
+    <update id="updateResult">
+        update gr_build_record
+        set result = #{result}, duration = #{duration}
+        where job_name = #{jobName}
+        and build_num = #{buildNum}
+    </update>
+</mapper>

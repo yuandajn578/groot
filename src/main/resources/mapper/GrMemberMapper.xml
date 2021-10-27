@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrMemberMapper">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.GrMember" id="GrMemberMap">
+        <result property="id" column="id" jdbcType="OTHER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="changeId" column="change_id" jdbcType="VARCHAR"/>
+        <result property="memberType" column="member_type" jdbcType="VARCHAR"/>
+        <result property="memberId" column="member_id" jdbcType="VARCHAR"/>
+        <result property="memberName" column="member_name" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="OTHER"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="queryByChangeIds" resultMap="GrMemberMap">
+        select
+          oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        where 1=1
+        and member_type = #{memberType}
+        and delete_flag = #{deleteFlag}
+        and change_id in
+        <foreach collection="changeIdList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from dev_groot.gr_member
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="changeId != null and changeId != ''">
+                and change_id = #{changeId}
+            </if>
+            <if test="memberType != null and memberType != ''">
+                and member_type = #{memberType}
+            </if>
+            <if test="memberId != null and memberId != ''">
+                and member_id = #{memberId}
+            </if>
+            <if test="memberName != null and memberName != ''">
+                and member_name = #{memberName}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_member(oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version)
+        values (#{oid}, #{changeId}, #{memberType}, #{memberId}, #{memberName}, #{mobile}, #{status}, #{deleteFlag}, #{createUser}, #{createTime}, #{updateUser}, #{updateTime}, #{version})
+    </insert>
+
+    <!--批量新增所有列-->
+    <insert id="batchInsert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_member(oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version)
+        values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+            (
+            #{item.oid}, #{item.changeId}, #{item.memberType}, #{item.memberId}, #{item.memberName}, #{item.mobile},
+             #{item.status}, #{item.deleteFlag}, #{item.createUser},
+            #{item.createTime}, #{item.updateUser}, #{item.updateTime}, #{item.version}
+            )
+        </foreach >
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update gr_member
+        <set>
+            <if test="memberType != null and memberType != ''">
+                member_type = #{memberType},
+            </if>
+            <if test="memberId != null and memberId != ''">
+                member_id = #{memberId},
+            </if>
+            <if test="memberName != null and memberName != ''">
+                member_name = #{memberName},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+        </set>
+        where oid = #{oid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from gr_member where id = #{id}
+    </delete>
+
+
+    <update id="deleteByChangeIdAndMemberType">
+        update gr_member set delete_flag = #{deleteFlag}
+        where change_id = #{changeId} and member_type = #{type}
+    </update>
+
+    <select id="listByChangeIdAndType" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        where change_id = #{changeId}
+        and member_type = #{type}
+        and delete_flag = #{deleteFlag}
+    </select>
+
+    <select id="listByMemberIdAndType" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        where member_id = #{memberId}
+        and member_type = #{memberType}
+        and delete_flag = #{deleteFlag}
+    </select>
+
+    <select id="listByMemberId" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        where member_id = #{memberId} and delete_flag = #{deleteFlag}
+    </select>
+
+    <select id="queryByChangeId" resultMap="GrMemberMap">
+        select
+          id, oid, change_id, member_type, member_id, member_name, mobile, status, delete_flag, create_user, create_time, update_user, update_time, version
+        from gr_member
+        where change_id = #{changeId} and delete_flag = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,78 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-mynamespace-appname
+  name: appname
+spec:
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-mynamespace-appname
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        keruyun-injector-webhook/inject: "yes"
+        keruyun-injector-webhook/tracing: "yes"
+      labels:
+        logformat: json
+        workload.user.cattle.io/workloadselector: deployment-mynamespace-appname
+    spec:
+      hostAliases:
+      - ip: "47.111.50.62"
+        hostnames:
+        - "apolload.dev.choicesaas.cn"
+      containers:
+      - image: myimage
+        imagePullPolicy: Always
+        name: appname
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ping
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 180
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ping
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 180
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        env:
+        - name: JAVA_OPTS
+          value: java_opts
+      imagePullSecrets:
+      - name: rcn
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:mynamespace:appname"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  name: appname
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-mynamespace-appname
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

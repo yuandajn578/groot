@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.TGrIterationDao">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.TGrIteration" id="TGrIterationMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="projectId" column="project_id" jdbcType="VARCHAR"/>
+        <result property="projectName" column="project_name" jdbcType="VARCHAR"/>
+        <result property="iterationName" column="iteration_name" jdbcType="VARCHAR"/>
+        <result property="iterationDesc" column="iteration_desc" jdbcType="VARCHAR"/>
+        <result property="exceptCompleteTime" column="except_complete_time" jdbcType="VARCHAR"/>
+        <result property="actualCompleteTime" column="actual_complete_time" jdbcType="VARCHAR"/>
+        <result property="iterationStatus" column="iteration_status" jdbcType="VARCHAR"/>
+        <result property="cUser" column="c_user" jdbcType="VARCHAR"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="uUser" column="u_user" jdbcType="VARCHAR"/>
+        <result property="uTime" column="u_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TGrIterationMap">
+        select
+          id, oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time, iteration_status, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_iteration
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TGrIterationMap">
+        select
+          id, oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time, iteration_status, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_iteration
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TGrIterationMap">
+        select
+        id, oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time,
+        iteration_status, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_iteration
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="projectId != null and projectId != ''">
+                and project_id = #{projectId}
+            </if>
+            <if test="projectName != null and projectName != ''">
+                and project_name = #{projectName}
+            </if>
+            <if test="iterationName != null and iterationName != ''">
+                and iteration_name = #{iterationName}
+            </if>
+            <if test="iterationDesc != null and iterationDesc != ''">
+                and iteration_desc = #{iterationDesc}
+            </if>
+            <if test="exceptCompleteTime != null">
+                and except_complete_time = #{exceptCompleteTime}
+            </if>
+            <if test="actualCompleteTime != null">
+                and actual_complete_time = #{actualCompleteTime}
+            </if>
+            <if test="iterationStatus != null and iterationStatus != ''">
+                and iteration_status = #{iterationStatus}
+            </if>
+            <if test="cUser != null and cUser != ''">
+                and c_user = #{cUser}
+            </if>
+            <if test="cTime != null">
+                and c_time = #{cTime}
+            </if>
+            <if test="uUser != null and uUser != ''">
+                and u_user = #{uUser}
+            </if>
+            <if test="uTime != null">
+                and u_time = #{uTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into t_gr_iteration(oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time, iteration_status, c_user, c_time, u_user, u_time, is_deleted)
+        values (#{oid}, #{projectId}, #{projectName}, #{iterationName}, #{iterationDesc}, #{exceptCompleteTime}, #{actualCompleteTime}, #{iterationStatus}, #{cUser}, #{cTime}, #{uUser}, #{uTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.TGrIteration">
+        insert into t_gr_iteration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="iterationName != null">
+                iteration_name,
+            </if>
+            <if test="iterationDesc != null">
+                iteration_desc,
+            </if>
+            <if test="exceptCompleteTime != null">
+                except_complete_time,
+            </if>
+            <if test="actualCompleteTime != null">
+                actual_complete_time,
+            </if>
+            <if test="iterationStatus != null">
+                iteration_status,
+            </if>
+            <if test="cUser != null">
+                c_user,
+            </if>
+            <if test="cTime != null">
+                c_time,
+            </if>
+            <if test="uUser != null">
+                u_user,
+            </if>
+            <if test="uTime != null">
+                u_time,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid},
+            </if>
+            <if test="projectId != null">
+                #{projectId},
+            </if>
+            <if test="projectName != null">
+                #{projectName},
+            </if>
+            <if test="iterationName != null">
+                #{iterationName},
+            </if>
+            <if test="iterationDesc != null">
+                #{iterationDesc},
+            </if>
+            <if test="exceptCompleteTime != null">
+                #{exceptCompleteTime},
+            </if>
+            <if test="actualCompleteTime != null">
+                #{actualCompleteTime},
+            </if>
+            <if test="iterationStatus != null">
+                #{iterationStatus},
+            </if>
+            <if test="cUser != null">
+                #{cUser},
+            </if>
+            <if test="cTime != null">
+                #{cTime},
+            </if>
+            <if test="uUser != null">
+                #{uUser},
+            </if>
+            <if test="uTime != null">
+                #{uTime},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted},
+            </if>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_gr_iteration
+        <set>
+            <if test="oid != null and oid != ''">
+                oid = #{oid},
+            </if>
+            <if test="projectId != null and projectId != ''">
+                project_id = #{projectId},
+            </if>
+            <if test="projectName != null and projectName != ''">
+                project_name = #{projectName},
+            </if>
+            <if test="iterationName != null and iterationName != ''">
+                iteration_name = #{iterationName},
+            </if>
+            <if test="iterationDesc != null and iterationDesc != ''">
+                iteration_desc = #{iterationDesc},
+            </if>
+            <if test="exceptCompleteTime != null">
+                except_complete_time = #{exceptCompleteTime},
+            </if>
+            <if test="actualCompleteTime != null">
+                actual_complete_time = #{actualCompleteTime},
+            </if>
+            <if test="iterationStatus != null and iterationStatus != ''">
+                iteration_status = #{iterationStatus},
+            </if>
+            <if test="cUser != null and cUser != ''">
+                c_user = #{cUser},
+            </if>
+            <if test="cTime != null">
+                c_time = #{cTime},
+            </if>
+            <if test="uUser != null and uUser != ''">
+                u_user = #{uUser},
+            </if>
+            <if test="uTime != null">
+                u_time = #{uTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where oid = #{oid}
+        and is_deleted = 0
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_gr_iteration where id = #{id}
+    </delete>
+
+    <!--分页查询数据-->
+    <select id="queryAllByPage" resultMap="TGrIterationMap">
+        select
+        id, oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time,
+        iteration_status, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_iteration
+        <where>
+            is_deleted = 0
+            <if test="iterationName != null and iterationName != ''">
+                and iteration_name = #{iterationName}
+            </if>
+            <if test="iterationStatus != null and iterationStatus != ''">
+                and iteration_status = #{iterationStatus}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="queryByOid" resultMap="TGrIterationMap">
+        select
+          id, oid, project_id, project_name, iteration_name, iteration_desc, except_complete_time, actual_complete_time, iteration_status, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_iteration
+        where oid = #{oid}
+        and is_deleted = 0
+    </select>
+
+</mapper>

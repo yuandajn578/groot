@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: default
+  application:
+    name: groot
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application
+logging:
+  level:
+    com.choice.cloud.architect.groot.dao: info

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.workordersystem.TGrWorkOrderDao">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.workordersystem.TGrWorkOrder"
+               id="TGrWorkOrderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orderCode" column="order_code" jdbcType="VARCHAR"/>
+        <result property="orderName" column="order_name" jdbcType="VARCHAR"/>
+        <result property="orderTypeCode" column="order_type_code" jdbcType="VARCHAR"/>
+        <result property="orderTypeName" column="order_type_name" jdbcType="VARCHAR"/>
+        <result property="orderStatus" column="order_status" jdbcType="VARCHAR"/>
+        <result property="orderBelongEnv" column="order_belong_env" jdbcType="VARCHAR"/>
+        <result property="orderApplyUserId" column="order_apply_user_id" jdbcType="VARCHAR"/>
+        <result property="orderApplyUser" column="order_apply_user" jdbcType="VARCHAR"/>
+        <result property="orderApplyReason" column="order_apply_reason" jdbcType="VARCHAR"/>
+        <result property="orderHandlerUserId" column="order_handler_user_id" jdbcType="VARCHAR"/>
+        <result property="orderHandlerUser" column="order_handler_user" jdbcType="VARCHAR"/>
+        <result property="orderHandlerFeedback" column="order_handler_feedback" jdbcType="VARCHAR"/>
+        <result property="cUser" column="c_user" jdbcType="VARCHAR"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="uUser" column="u_user" jdbcType="VARCHAR"/>
+        <result property="uTime" column="u_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TGrWorkOrderMap">
+        select
+          id, order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user, order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_work_order
+        where id = #{id}
+    </select>
+
+    <!--根据工单编码查询工单信息-->
+    <select id="queryByOrderCode" resultMap="TGrWorkOrderMap" parameterType="string">
+        select
+          id, order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user, order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_work_order
+        where order_code = #{orderCode}
+        and is_deleted = 0
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TGrWorkOrderMap">
+        select
+          id, order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user, order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_work_order
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TGrWorkOrderMap">
+        select
+        id, order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user,
+        order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_work_order
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderCode != null and orderCode != ''">
+                and order_code = #{orderCode}
+            </if>
+            <if test="orderName != null and orderName != ''">
+                and order_name = #{orderName}
+            </if>
+            <if test="orderTypeCode != null and orderTypeCode != ''">
+                and order_type_code = #{orderTypeCode}
+            </if>
+            <if test="orderTypeName != null and orderTypeName != ''">
+                and order_type_name = #{orderTypeName}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="orderBelongEnv != null and orderBelongEnv != ''">
+                and order_belong_env = #{orderBelongEnv}
+            </if>
+            <if test="orderApplyUserId != null and orderApplyUserId != ''">
+                and order_apply_user_id = #{orderApplyUserId}
+            </if>
+            <if test="orderApplyUser != null and orderApplyUser != ''">
+                and order_apply_user = #{orderApplyUser}
+            </if>
+            <if test="orderApplyReason != null and orderApplyReason != ''">
+                and order_apply_reason = #{orderApplyReason}
+            </if>
+            <if test="orderHandlerUserId != null and orderHandlerUserId != ''">
+                order_handler_user_id = #{orderHandlerUserId}
+            </if>
+            <if test="orderHandlerUser != null and orderHandlerUser != ''">
+                and order_handler_user = #{orderHandlerUser}
+            </if>
+            <if test="orderHandlerFeedback != null and orderHandlerFeedback != ''">
+                and order_handler_feedback = #{orderHandlerFeedback}
+            </if>
+            <if test="cUser != null and cUser != ''">
+                and c_user = #{cUser}
+            </if>
+            <if test="cTime != null">
+                and c_time = #{cTime}
+            </if>
+            <if test="uUser != null and uUser != ''">
+                and u_user = #{uUser}
+            </if>
+            <if test="uTime != null">
+                and u_time = #{uTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--分页查询-->
+    <select id="queryAllByPage" resultMap="TGrWorkOrderMap"
+            parameterType="com.choice.cloud.architect.groot.dto.workordersystem.PageListWorkOrderRequestDTO">
+        select
+        id, order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user,
+        order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_work_order
+        <where>
+            is_deleted = 0
+            <if test="orderName != null and orderName != ''">
+                and order_name like CONCAT("%", #{orderName},"%")
+            </if>
+            <if test="orderTypeCode != null and orderTypeCode != ''">
+                and order_type_code = #{orderTypeCode}
+            </if>
+            <if test="orderTypeName != null and orderTypeName != ''">
+                and order_type_name like CONCAT("%", #{orderTypeName},"%")
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="orderApplyUser != null and orderApplyUser != ''">
+                and order_apply_user = #{orderApplyUser}
+            </if>
+            <if test="orderHandlerUser != null and orderHandlerUser != ''">
+                and order_handler_user = #{orderHandlerUser}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into t_gr_work_order(order_code, order_name, order_type_code, order_type_name, order_status, order_belong_env, order_apply_user_id, order_apply_user, order_apply_reason, order_handler_user_id, order_handler_user, order_handler_feedback, c_user, c_time, u_user, u_time, is_deleted)
+        values (#{orderCode}, #{orderName}, #{orderTypeCode}, #{orderTypeName}, #{orderStatus}, #{orderBelongEnv}, #{orderApplyUserId}, #{orderApplyUser}, #{orderApplyReason}, #{orderHandlerUserId}, #{orderHandlerUser}, #{orderHandlerFeedback}, #{cUser}, #{cTime}, #{uUser}, #{uTime}, #{isDeleted})
+    </insert>
+
+    <!--通过工单编码修改数据-->
+    <update id="update">
+        update t_gr_work_order
+        <set>
+            <if test="orderCode != null and orderCode != ''">
+                order_code = #{orderCode},
+            </if>
+            <if test="orderName != null and orderName != ''">
+                order_name = #{orderName},
+            </if>
+            <if test="orderTypeCode != null and orderTypeCode != ''">
+                order_type_code = #{orderTypeCode},
+            </if>
+            <if test="orderTypeName != null and orderTypeName != ''">
+                order_type_name = #{orderTypeName},
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                order_status = #{orderStatus},
+            </if>
+            <if test="orderBelongEnv != null and orderBelongEnv != ''">
+                order_belong_env = #{orderBelongEnv},
+            </if>
+            <if test="orderApplyUserId != null and orderApplyUserId != ''">
+                order_apply_user_id = #{orderApplyUserId},
+            </if>
+            <if test="orderApplyUser != null and orderApplyUser != ''">
+                order_apply_user = #{orderApplyUser},
+            </if>
+            <if test="orderApplyReason != null and orderApplyReason != ''">
+                order_apply_reason = #{orderApplyReason},
+            </if>
+            <if test="orderHandlerUserId != null and orderHandlerUserId != ''">
+                order_handler_user_id = #{orderHandlerUserId},
+            </if>
+            <if test="orderHandlerUser != null and orderHandlerUser != ''">
+                order_handler_user = #{orderHandlerUser},
+            </if>
+            <if test="orderHandlerFeedback != null and orderHandlerFeedback != ''">
+                order_handler_feedback = #{orderHandlerFeedback},
+            </if>
+            <if test="cUser != null and cUser != ''">
+                c_user = #{cUser},
+            </if>
+            <if test="cTime != null">
+                c_time = #{cTime},
+            </if>
+            <if test="uUser != null and uUser != ''">
+                u_user = #{uUser},
+            </if>
+            <if test="uTime != null">
+                u_time = #{uTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where order_code = #{orderCode}
+        and is_deleted = 0
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_gr_work_order where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrChangeRecodeMapper">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.GrChangeRecode" id="GrChangeRecodeMap">
+        <result property="id" column="id" jdbcType="OTHER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="changeId" column="change_id" jdbcType="VARCHAR"/>
+        <result property="appId" column="app_id" jdbcType="VARCHAR"/>
+        <result property="env" column="env" jdbcType="VARCHAR"/>
+        <result property="cluster" column="cluster" jdbcType="TIMESTAMP"/>
+        <result property="namespace" column="namespace" jdbcType="VARCHAR"/>
+        <result property="logType" column="log_type" jdbcType="VARCHAR"/>
+        <result property="optType" column="opt_type" jdbcType="VARCHAR"/>
+        <result property="optTime" column="opt_time" jdbcType="TIMESTAMP"/>
+        <result property="oldValue" column="old_value" jdbcType="VARCHAR"/>
+        <result property="newValue" column="new_value" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="optResult" column="opt_result" jdbcType="VARCHAR"/>
+        <result property="optDetail" column="opt_detail" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="OTHER"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GrChangeRecodeMap">
+        select
+          id, oid, change_id, log_type, opt_type, opt_time, old_value, new_value, operator, opt_result, opt_detail, status, delete_flag, create_user, create_time, update_user, update_time
+        from gr_change_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GrChangeRecodeMap">
+        select
+          id, oid, change_id, log_type, opt_type, opt_time, old_value, new_value, operator, opt_result, opt_detail, status, delete_flag, create_user, create_time, update_user, update_time
+        from gr_change_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GrChangeRecodeMap">
+        select
+          id, oid, change_id, app_id, env, cluster, namespace, log_type, opt_type, opt_time, old_value, new_value, operator, opt_result, opt_detail, status, delete_flag, create_user, create_time, update_user, update_time
+        from gr_change_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="logType != null and logType != ''">
+                and log_type = #{logType}
+            </if>
+            <if test="optType != null and optType != ''">
+                and opt_type = #{optType}
+            </if>
+            <if test="optTime != null">
+                and opt_time = #{optTime}
+            </if>
+            <if test="oldValue != null and oldValue != ''">
+                and old_value = #{oldValue}
+            </if>
+            <if test="newValue != null and newValue != ''">
+                and new_value = #{newValue}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="optResult != null and optResult != ''">
+                and opt_result = #{optResult}
+            </if>
+            <if test="optDetail != null and optDetail != ''">
+                and opt_detail = #{optDetail}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_change_record(oid, change_id, app_id, env, cluster, namespace,log_type, opt_type, opt_time, old_value, new_value, operator, opt_result, opt_detail, status, delete_flag, create_user, create_time, update_user, update_time)
+        values (#{oid}, #{changeId}, #{appId}, #{env}, #{cluster}, #{namespace}, #{logType}, #{optType}, #{optTime}, #{oldValue}, #{newValue}, #{operator}, #{optResult}, #{optDetail}, #{status}, #{deleteFlag}, #{createUser}, #{createTime}, #{updateUser}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update gr_change_record
+        <set>
+            <if test="oid != null and oid != ''">
+                oid = #{oid},
+            </if>
+            <if test="logType != null and logType != ''">
+                log_type = #{logType},
+            </if>
+            <if test="optType != null and optType != ''">
+                opt_type = #{optType},
+            </if>
+            <if test="optTime != null">
+                opt_time = #{optTime},
+            </if>
+            <if test="oldValue != null and oldValue != ''">
+                old_value = #{oldValue},
+            </if>
+            <if test="newValue != null and newValue != ''">
+                new_value = #{newValue},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="optResult != null and optResult != ''">
+                opt_result = #{optResult},
+            </if>
+            <if test="optDetail != null and optDetail != ''">
+                opt_detail = #{optDetail},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from gr_change_record where id = #{id}
+    </delete>
+
+
+
+    <select id="listWithPage" resultMap="GrChangeRecodeMap">
+
+        select * from (SELECT
+            change_id,
+            opt_time,
+            opt_type,
+            old_value,
+            new_value,
+            operator,
+            opt_result ,
+            create_time
+        FROM
+            gr_change_record
+        WHERE
+            change_id = #{changeId} UNION ALL
+        SELECT
+            change_id,
+            operate_time AS opt_time,
+            operate_type AS opt_type,
+            env_code as old_value,
+            "" as new_value,
+            operator,
+            operate_result ,
+            create_time
+        FROM
+            gr_change_life_circle
+        WHERE
+            delete_flag = 0
+            AND change_id = #{changeId} ) a order by a.create_time desc
+
+    </select>
+
+</mapper>

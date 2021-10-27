@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.TGrProjectDao">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.TGrProject" id="TGrProjectMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="projectName" column="project_name" jdbcType="VARCHAR"/>
+        <result property="projectDesc" column="project_desc" jdbcType="VARCHAR"/>
+        <result property="ownerId" column="owner_id" jdbcType="VARCHAR"/>
+        <result property="ownerName" column="owner_name" jdbcType="VARCHAR"/>
+        <result property="backUpOwnerId" column="back_up_owner_id" jdbcType="VARCHAR"/>
+        <result property="backUpOwnerName" column="back_up_owner_name" jdbcType="VARCHAR"/>
+        <result property="cUser" column="c_user" jdbcType="VARCHAR"/>
+        <result property="cTime" column="c_time" jdbcType="TIMESTAMP"/>
+        <result property="uUser" column="u_user" jdbcType="VARCHAR"/>
+        <result property="uTime" column="u_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TGrProjectMap">
+        select
+          id, oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_project
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TGrProjectMap">
+        select
+          id, oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_project
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TGrProjectMap">
+        select
+        id, oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time,
+        u_user, u_time, is_deleted
+        from t_gr_project
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="projectName != null and projectName != ''">
+                and project_name = #{projectName}
+            </if>
+            <if test="projectDesc != null and projectDesc != ''">
+                and project_desc = #{projectDesc}
+            </if>
+            <if test="ownerId != null and ownerId != ''">
+                and owner_id = #{ownerId}
+            </if>
+            <if test="ownerName != null and ownerName != ''">
+                and owner_name = #{ownerName}
+            </if>
+            <if test="backUpOwnerId != null and backUpOwnerId != ''">
+                and back_up_owner_id = #{backUpOwnerId}
+            </if>
+            <if test="backUpOwnerName != null and backUpOwnerName != ''">
+                and back_up_owner_name = #{backUpOwnerName}
+            </if>
+            <if test="cUser != null and cUser != ''">
+                and c_user = #{cUser}
+            </if>
+            <if test="cTime != null">
+                and c_time = #{cTime}
+            </if>
+            <if test="uUser != null and uUser != ''">
+                and u_user = #{uUser}
+            </if>
+            <if test="uTime != null">
+                and u_time = #{uTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into t_gr_project(oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time, u_user, u_time, is_deleted)
+        values (#{oid}, #{projectName}, #{projectDesc}, #{ownerId}, #{ownerName}, #{backUpOwnerId}, #{backUpOwnerName}, #{cUser}, #{cTime}, #{uUser}, #{uTime}, #{isDeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_gr_project
+        <set>
+            <if test="oid != null and oid != ''">
+                oid = #{oid},
+            </if>
+            <if test="projectName != null and projectName != ''">
+                project_name = #{projectName},
+            </if>
+            <if test="projectDesc != null and projectDesc != ''">
+                project_desc = #{projectDesc},
+            </if>
+            <if test="ownerId != null and ownerId != ''">
+                owner_id = #{ownerId},
+            </if>
+            <if test="ownerName != null and ownerName != ''">
+                owner_name = #{ownerName},
+            </if>
+            <if test="backUpOwnerId != null and backUpOwnerId != ''">
+                back_up_owner_id = #{backUpOwnerId},
+            </if>
+            <if test="backUpOwnerName != null and backUpOwnerName != ''">
+                back_up_owner_name = #{backUpOwnerName},
+            </if>
+            <if test="cUser != null and cUser != ''">
+                c_user = #{cUser},
+            </if>
+            <if test="cTime != null">
+                c_time = #{cTime},
+            </if>
+            <if test="uUser != null and uUser != ''">
+                u_user = #{uUser},
+            </if>
+            <if test="uTime != null">
+                u_time = #{uTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where oid = #{oid}
+        and is_deleted = 0
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_gr_project where id = #{id}
+    </delete>
+
+    <!--分页查询项目-->
+    <select id="queryAllByPage" resultMap="TGrProjectMap">
+        select
+        id, oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time,
+        u_user, u_time, is_deleted
+        from t_gr_project
+        <where>
+            is_deleted = 0 and
+            <if test="projectName != null and projectName != ''">
+                and project_name = #{projectName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryByOid" resultMap="TGrProjectMap">
+        select
+          id, oid, project_name, project_desc, owner_id, owner_name, back_up_owner_id, back_up_owner_name, c_user, c_time, u_user, u_time, is_deleted
+        from t_gr_project
+        where oid = #{oid}
+        and is_deleted = 0
+    </select>
+
+</mapper>

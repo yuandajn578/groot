@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishAuditRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrPublishAuditRecord" >
+        <result column="id" property="id" />
+        <result column="oid" property="oid" />
+        <result column="publish_audit_id" property="publishAuditId" />
+        <result column="publish_audit_name" property="publishAuditName" />
+        <result column="dtalk_process_id" property="dtalkProcessId" />
+        <result column="env_type" property="envType" />
+        <result column="env_code" property="envCode" />
+        <result column="env_name" property="envName" />
+        <result column="publish_type" property="publishType" />
+        <result column="previous_status" property="previousStatus" />
+        <result column="current_status" property="currentStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="delete_flag" property="deleteFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                oid,
+                publish_audit_id,
+                publish_audit_name,
+                dtalk_process_id,
+                env_type,
+                env_code,
+                env_name,
+                publish_type,
+                previous_status,
+                current_status,
+                create_time,
+                create_user,
+                update_time,
+                update_user,
+                delete_flag
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditRecord">
+        INSERT INTO gr_publish_audit_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != oid'>
+                oid,
+            </if>
+            <if test ='null != publishAuditId'>
+                publish_audit_id,
+            </if>
+            <if test ='null != publishAuditName'>
+                publish_audit_name,
+            </if>
+            <if test ='null != dtalkProcessId'>
+                dtalk_process_id,
+            </if>
+            <if test ='null != envType'>
+                env_type,
+            </if>
+            <if test ='null != envCode'>
+                env_code,
+            </if>
+            <if test ='null != envName'>
+                env_name,
+            </if>
+            <if test ='null != publishType'>
+                publish_type,
+            </if>
+            <if test ='null != previousStatus'>
+                previous_status,
+            </if>
+            <if test ='null != currentStatus'>
+                current_status,
+            </if>
+            <if test ='null != createTime'>
+                create_time,
+            </if>
+            <if test ='null != createUser'>
+                create_user,
+            </if>
+            <if test ='null != updateTime'>
+                update_time,
+            </if>
+            <if test ='null != updateUser'>
+                update_user,
+            </if>
+            <if test ='null != deleteFlag'>
+                delete_flag
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test ='null != oid'>
+                #{oid},
+            </if>
+            <if test ='null != publishAuditId'>
+                #{publishAuditId},
+            </if>
+            <if test ='null != publishAuditName'>
+                #{publishAuditName},
+            </if>
+            <if test ='null != dtalkProcessId'>
+                #{dtalkProcessId},
+            </if>
+            <if test ='null != envType'>
+                #{envType},
+            </if>
+            <if test ='null != envCode'>
+                #{envCode},
+            </if>
+            <if test ='null != envName'>
+                #{envName},
+            </if>
+            <if test ='null != publishType'>
+                #{publishType},
+            </if>
+            <if test ='null != previousStatus'>
+                #{previousStatus},
+            </if>
+            <if test ='null != currentStatus'>
+                #{currentStatus},
+            </if>
+            <if test ='null != createTime'>
+                #{createTime},
+            </if>
+            <if test ='null != createUser'>
+                #{createUser},
+            </if>
+            <if test ='null != updateTime'>
+                #{updateTime},
+            </if>
+            <if test ='null != updateUser'>
+                #{updateUser},
+            </if>
+            <if test ='null != deleteFlag'>
+                #{deleteFlag}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM gr_publish_audit_record
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrPublishAuditRecord">
+        UPDATE gr_publish_audit_record
+        <set>
+            <if test ='null != oid'>oid = #{oid},</if>
+            <if test ='null != publishAuditId'>publish_audit_id = #{publishAuditId},</if>
+            <if test ='null != publishAuditName'>publish_audit_name = #{publishAuditName},</if>
+            <if test ='null != dtalkProcessId'>dtalk_process_id = #{dtalkProcessId},</if>
+            <if test ='null != envType'>env_type = #{envType},</if>
+            <if test ='null != envCode'>env_code = #{envCode},</if>
+            <if test ='null != envName'>env_name = #{envName},</if>
+            <if test ='null != publishType'>publish_type = #{publishType},</if>
+            <if test ='null != previousStatus'>previous_status = #{previousStatus},</if>
+            <if test ='null != currentStatus'>current_status = #{currentStatus},</if>
+            <if test ='null != createTime'>create_time = #{createTime},</if>
+            <if test ='null != createUser'>create_user = #{createUser},</if>
+            <if test ='null != updateTime'>update_time = #{updateTime},</if>
+            <if test ='null != updateUser'>update_user = #{updateUser},</if>
+            <if test ='null != deleteFlag'>delete_flag = #{deleteFlag}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM gr_publish_audit_record
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM gr_publish_audit_record
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM gr_publish_audit_record
+    </select>
+
+</mapper>

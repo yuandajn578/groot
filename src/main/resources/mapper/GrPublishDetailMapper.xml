@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrPublishDetail">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="CHAR" property="oid" />
+        <result column="publish_id" jdbcType="CHAR" property="publishId" />
+        <result column="idc" jdbcType="VARCHAR" property="idc" />
+        <result column="ldc" jdbcType="VARCHAR" property="ldc" />
+        <result column="pod_name" jdbcType="VARCHAR" property="podName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, oid, publish_id, idc, ldc, pod_name, create_time, create_user, update_time, update_user,
+      delete_flag
+    </sql>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_publish_detail
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrPublishDetail">
+      insert into gr_publish_detail (id, oid, publish_id,
+        idc, ldc, pod_name,
+        create_time, create_user, update_time,
+        update_user, delete_flag)
+      values (#{id,jdbcType=INTEGER}, #{oid,jdbcType=CHAR}, #{publishId,jdbcType=CHAR},
+        #{idc,jdbcType=VARCHAR}, #{ldc,jdbcType=VARCHAR}, #{podName,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{updateUser,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=INTEGER})
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrPublishDetail">
+        insert into gr_publish_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="publishId != null">
+                publish_id,
+            </if>
+            <if test="idc != null">
+                idc,
+            </if>
+            <if test="ldc != null">
+                ldc,
+            </if>
+            <if test="podName != null">
+                pod_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=CHAR},
+            </if>
+            <if test="publishId != null">
+                #{publishId,jdbcType=CHAR},
+            </if>
+            <if test="idc != null">
+                #{idc,jdbcType=VARCHAR},
+            </if>
+            <if test="ldc != null">
+                #{ldc,jdbcType=VARCHAR},
+            </if>
+            <if test="podName != null">
+                #{podName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrPublishDetail">
+        update gr_publish_detail
+        <set>
+            <if test="oid != null">
+                oid = #{oid,jdbcType=CHAR},
+            </if>
+            <if test="publishId != null">
+                publish_id = #{publishId,jdbcType=CHAR},
+            </if>
+            <if test="idc != null">
+                idc = #{idc,jdbcType=VARCHAR},
+            </if>
+            <if test="ldc != null">
+                ldc = #{ldc,jdbcType=VARCHAR},
+            </if>
+            <if test="podName != null">
+                pod_name = #{podName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrPublishDetail">
+      update gr_publish_detail
+      set oid = #{oid,jdbcType=CHAR},
+        publish_id = #{publishId,jdbcType=CHAR},
+        idc = #{idc,jdbcType=VARCHAR},
+        ldc = #{ldc,jdbcType=VARCHAR},
+        pod_name = #{podName,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_user = #{createUser,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=VARCHAR},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPublishId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_publish_detail
+        where publish_id = #{publishId}
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="id != null" >
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="oid != null" >
+                and oid = #{oid,jdbcType=CHAR}
+            </if>
+            <if test="publishId != null" >
+                and publish_id = #{publishId,jdbcType=CHAR}
+            </if>
+            <if test="idc != null and idc != ''" >
+                and idc = #{idc,jdbcType=VARCHAR}
+            </if>
+            <if test="ldc != null and ldc != ''" >
+                and ldc = #{ldc,jdbcType=VARCHAR}
+            </if>
+            <if test="podName != null and podName != ''" >
+                and pod_name = #{podName,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null and createUser != ''" >
+                and create_user = #{createUser,jdbcType=VARCHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null and updateUser != ''" >
+                and update_user = #{updateUser,jdbcType=VARCHAR}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+</mapper>

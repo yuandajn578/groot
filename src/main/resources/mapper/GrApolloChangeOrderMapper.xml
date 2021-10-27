@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrApolloChangeOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="CHAR" property="oid" />
+        <result column="change_id" jdbcType="CHAR" property="changeId" />
+        <result column="change_item_key" jdbcType="CHAR" property="changeItemKey" />
+        <result column="app_id" jdbcType="VARCHAR" property="appId" />
+        <result column="env" jdbcType="CHAR" property="env" />
+        <result column="cluster" jdbcType="CHAR" property="cluster" />
+        <result column="namespace" jdbcType="CHAR" property="namespace" />
+        <result column="change_item_value" jdbcType="CHAR" property="changeItemValue" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+        <result column="create_user" jdbcType="CHAR" property="createUser" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="CHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, oid, change_id, app_id, env, cluster, namespace, change_item_key, change_item_value, description, status, delete_flag,
+      create_user, create_time, update_user, update_time
+    </sql>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_apollo_change_order
+      where oid = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+      insert into gr_apollo_change_order (oid, change_id,app_id, env, cluster, namespace,
+        change_item_key, change_item_value, description,
+        status, delete_flag, create_user,
+        create_time, update_user, update_time
+        )
+      values (#{oid,jdbcType=CHAR}, #{changeId,jdbcType=CHAR},#{appId},#{env},#{cluster},#{namespace},
+        #{changeItemKey,jdbcType=CHAR}, #{changeItemValue,jdbcType=CHAR}, #{description,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER}, #{createUser,jdbcType=CHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="batchInsert">
+        insert into gr_apollo_change_order (oid, change_id,app_id, env, cluster, namespace,
+        change_item_key, change_item_value, description,
+        status, delete_flag, create_user,
+        create_time, update_user, update_time
+        ) values
+        <foreach collection="list" item="item"  separator=",">
+            (#{item.oid}, #{item.changeId},#{item.appId},#{item.env},#{item.cluster},#{item.namespace},
+            #{item.changeItemKey}, #{item.changeItemValue}, #{item.description},
+            #{item.status}, #{item.deleteFlag}, #{item.createUser},
+            #{item.createTime}, #{item.updateUser}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+        insert into gr_apollo_change_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="changeId != null">
+                change_id,
+            </if>
+            <if test="appId != null and appId != ''">
+                app_id,
+            </if>
+            <if test="env != null and env != ''">
+                env,
+            </if>
+            <if test="cluster != null and cluster != ''">
+                cluster,
+            </if>
+            <if test="namespace != null and namespace != ''">
+                namespace,
+            </if>
+            <if test="changeItemKey != null">
+                change_item_key,
+            </if>
+            <if test="changeItemValue != null">
+                change_item_value,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=CHAR},
+            </if>
+            <if test="changeId != null">
+                #{changeId,jdbcType=CHAR},
+            </if>
+            <if test="appId != null and appId != ''">
+                #{appId},
+            </if>
+            <if test="env != null and env != ''">
+                #{env},
+            </if>
+            <if test="cluster != null and cluster != ''">
+                #{cluster},
+            </if>
+            <if test="namespace != null and namespace != ''">
+                #namespace},
+            </if>
+            <if test="changeItemKey != null">
+                #{changeItemKey,jdbcType=CHAR},
+            </if>
+            <if test="changeItemValue != null">
+                #{changeItemValue,jdbcType=CHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+        update gr_apollo_change_order
+        <set>
+            <if test="changeId != null">
+                change_id = #{changeId,jdbcType=CHAR},
+            </if>
+            <if test="appId != null and appId != ''">
+                app_id = #{appId},
+            </if>
+            <if test="env != null and env != ''">
+                env = #{env},
+            </if>
+            <if test="cluster != null and cluster != ''">
+                cluster = #{cluster},
+            </if>
+            <if test="namespace != null and namespace != ''">
+                namespace = #{namespace},
+            </if>
+            <if test="changeItemKey != null">
+                change_item_key = #{changeItemKey,jdbcType=CHAR},
+            </if>
+            <if test="changeItemValue != null">
+                change_item_value = #{changeItemValue,jdbcType=CHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where oid = #{oid,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+      update gr_apollo_change_order
+      set
+        change_id = #{changeId,jdbcType=CHAR},
+        app_id = #{appId},
+        env = #{env},
+        cluster = #{cluster},
+        namespace = #{namespace},
+        change_item_key = #{changeItemKey,jdbcType=CHAR},
+        change_item_value = #{changeItemValue,jdbcType=CHAR},
+        description = #{description,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+        create_user = #{createUser,jdbcType=CHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=CHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where oid = #{oid,jdbcType=VARCHAR}
+    </update>
+
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_apollo_change_order
+        where oid = #{oid}
+        and delete_flag = 0
+    </select>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrApolloChangeOrder">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_apollo_change_order
+        <include refid="findPageWithWhere"/>
+    </select>
+
+
+    <update id="publish" >
+        update gr_apollo_change_order
+        set status = 1
+        where delete_flag = 0
+        and app_id = #{appId}
+        and env = #{env}
+        and cluster = #{cluster}
+        and namespace = #{namespace}
+        and status = 0
+    </update>
+
+
+    <sql id="findPageWithWhere">
+        <where> 1=1
+            <if test="oid != null" >
+                and oid = #{oid,jdbcType=CHAR}
+            </if>
+            <if test="changeId != null" >
+                and change_id = #{changeId,jdbcType=CHAR}
+            </if>
+            <if test="appId != null and appId != ''">
+                and app_id = #{appId}
+            </if>
+            <if test="env != null and env != ''">
+                and env = #{env}
+            </if>
+            <if test="cluster != null and cluster != ''">
+                and cluster = #{cluster}
+            </if>
+            <if test="namespace != null and namespace != ''">
+                and namespace = #{namespace}
+            </if>
+            <if test="changeItemKey != null and changeItemKey != ''" >
+                and change_item_key like  concat(#{changeItemKey}, '%')
+            </if>
+            <if test="changeItemValue != null" >
+                and change_item_value = #{changeItemValue,jdbcType=CHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null" >
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+            <if test="createUser != null" >
+                and create_user = #{createUser,jdbcType=CHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null" >
+                and update_user = #{updateUser,jdbcType=CHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+    <update id="updateDeleteFlag">
+        update gr_apollo_change_order
+        set delete_flag = 1
+        where  oid= #{oid}
+    </update>
+</mapper>

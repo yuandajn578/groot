@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrEnvMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrEnv">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="oid" jdbcType="CHAR" property="oid"/>
+        <result column="env_name" jdbcType="CHAR" property="envName"/>
+        <result column="env_code" jdbcType="CHAR" property="envCode"/>
+        <result column="env_isolation" jdbcType="INTEGER" property="envIsolation"/>
+        <result column="env_type" jdbcType="VARCHAR" property="envType"/>
+        <result column="jvm_parameter" jdbcType="VARCHAR" property="jvmParameter"/>
+        <result column="instance_num" jdbcType="VARCHAR" property="instanceNum"/>
+        <result column="cpu_num" jdbcType="VARCHAR" property="cpuNum"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="audit_status" jdbcType="VARCHAR" property="auditStatus"/>
+        <result column="expire_date" jdbcType="DATE" property="expireDate"/>
+        <result column="resource_spec_id" jdbcType="VARCHAR" property="resourceSpecId"/>
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag"/>
+        <result column="create_user" jdbcType="CHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="CHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, oid, env_name, env_code, env_isolation, env_type, jvm_parameter, instance_num,
+      cpu_num, description, audit_status, expire_date, resource_spec_id, status, delete_flag, create_user, create_time, update_user, update_time
+    </sql>
+
+
+    <delete id="delete" parameterType="java.lang.String">
+      update gr_env
+      set delete_flag = 1,
+      update_user = #{updateUser}
+      where oid = #{oid}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrEnv">
+      insert into gr_env (id, oid, env_name, env_code,
+        env_isolation, env_type, jvm_parameter,
+        instance_num, cpu_num, description,
+        audit_status,
+        expire_date,
+        resource_spec_id,
+        status, delete_flag, create_user,
+        create_time, update_user, update_time
+        )
+      values (#{id,jdbcType=INTEGER}, #{oid,jdbcType=CHAR}, #{envName,jdbcType=CHAR}, #{envCode,jdbcType=CHAR},
+        #{envIsolation,jdbcType=INTEGER}, #{envType,jdbcType=VARCHAR}, #{jvmParameter,jdbcType=VARCHAR},
+        #{instanceNum,jdbcType=VARCHAR}, #{cpuNum,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{auditStatus},
+        #{expireDate},
+        #{resourceSpecId},
+        #{status,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER}, #{createUser,jdbcType=CHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrEnv">
+        insert into gr_env
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="envName != null">
+                env_name,
+            </if>
+            <if test="envCode != null">
+                env_code,
+            </if>
+            <if test="envIsolation != null">
+                env_isolation,
+            </if>
+            <if test="envType != null">
+                env_type,
+            </if>
+            <if test="jvmParameter != null">
+                jvm_parameter,
+            </if>
+            <if test="instanceNum != null">
+                instance_num,
+            </if>
+            <if test="cpuNum != null">
+                cpu_num,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=CHAR},
+            </if>
+            <if test="envName != null">
+                #{envName,jdbcType=CHAR},
+            </if>
+            <if test="envCode != null">
+                #{envCode,jdbcType=CHAR},
+            </if>
+            <if test="envIsolation != null">
+                #{envIsolation,jdbcType=INTEGER},
+            </if>
+            <if test="envType != null">
+                #{envType,jdbcType=VARCHAR},
+            </if>
+            <if test="jvmParameter != null">
+                #{jvmParameter,jdbcType=VARCHAR},
+            </if>
+            <if test="instanceNum != null">
+                #{instanceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cpuNum != null">
+                #{cpuNum,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrEnv">
+        update gr_env
+        <set>
+            <if test="oid != null">
+                oid = #{oid,jdbcType=CHAR},
+            </if>
+            <if test="envName != null">
+                env_name = #{envName,jdbcType=CHAR},
+            </if>
+            <if test="envCode != null">
+                env_code = #{envCode,jdbcType=CHAR},
+            </if>
+            <if test="envIsolation != null">
+                env_isolation = #{envIsolation,jdbcType=INTEGER},
+            </if>
+            <if test="envType != null">
+                env_type = #{envType,jdbcType=VARCHAR},
+            </if>
+            <if test="jvmParameter != null">
+                jvm_parameter = #{jvmParameter,jdbcType=VARCHAR},
+            </if>
+            <if test="instanceNum != null">
+                instance_num = #{instanceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="cpuNum != null">
+                cpu_num = #{cpuNum,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrEnv">
+      update gr_env
+      set oid = #{oid,jdbcType=CHAR},
+        env_name = #{envName,jdbcType=CHAR},
+        env_code = #{envCode,jdbcType=CHAR},
+        env_isolation = #{envIsolation,jdbcType=INTEGER},
+        env_type = #{envType,jdbcType=VARCHAR},
+        jvm_parameter = #{jvmParameter,jdbcType=VARCHAR},
+        instance_num = #{instanceNum,jdbcType=VARCHAR},
+        cpu_num = #{cpuNum,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        audit_status = #{auditStatus},
+        expire_date = #{expireDate},
+        resource_spec_id = #{resourceSpecId},
+        status = #{status,jdbcType=INTEGER},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+        update_user = #{updateUser,jdbcType=CHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where oid = #{oid}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from gr_env
+        where oid = #{oid}
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where>1=1
+            <if test="id != null">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="oid != null">
+                and oid = #{oid,jdbcType=CHAR}
+            </if>
+            <if test="envName != null">
+                and env_name = #{envName,jdbcType=CHAR}
+            </if>
+            <if test="envCode != null">
+                and env_code = #{envCode,jdbcType=CHAR}
+            </if>
+            <if test="envIsolation != null">
+                and env_isolation = #{envIsolation,jdbcType=INTEGER}
+            </if>
+            <if test="envType != null">
+                and env_type = #{envType,jdbcType=VARCHAR}
+            </if>
+            <if test="jvmParameter != null and jvmParameter != ''">
+                and jvm_parameter = #{jvmParameter,jdbcType=VARCHAR}
+            </if>
+            <if test="instanceNum != null and instanceNum != ''">
+                and instance_num = #{instanceNum,jdbcType=VARCHAR}
+            </if>
+            <if test="cpuNum != null and cpuNum != ''">
+                and cpu_num = #{cpuNum,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and desc != ''">
+                and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+            <if test="createUser != null">
+                and create_user = #{createUser,jdbcType=CHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null">
+                and update_user = #{updateUser,jdbcType=CHAR}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrEnv">
+        select
+        <include refid="Base_Column_List"/>
+        from gr_env
+        <where>
+            and delete_flag = 0
+            <if test="envQueryPageDO.envName != null and envQueryPageDO.envName != ''">
+                and env_name like concat('%', #{envQueryPageDO.envName}, '%')
+            </if>
+            <if test="envQueryPageDO.envType != null and envQueryPageDO.envType != ''">
+                and env_type = #{envQueryPageDO.envType}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from gr_env
+        where env_code = #{envCode}
+        and env_type = #{envType}
+        and  delete_flag = 0
+    </select>
+
+    <select id="selectByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from gr_env
+        where env_type = #{envType}
+        and  delete_flag = 0
+    </select>
+
+    <update id="updateStatus">
+        update gr_env
+        set status = #{expectStatus},
+        update_user = #{updateUser}
+        where oid = #{id}
+        and status = #{oldStatus}
+    </update>
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrPublishBlackRecordMapper">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.GrPublishBlackRecord" id="GrPublishBlackListMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+        <result property="blackType" column="black_type" jdbcType="VARCHAR"/>
+        <result property="weekCode" column="week_code" jdbcType="INTEGER"/>
+        <result property="beginTime" column="begin_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="blackDate" column="black_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryByWeek" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        where week_code = #{weekCode} and begin_time &lt; #{time} and end_time &gt; #{time} and delete_flag = #{deleteFlag}
+    </select>
+
+    <select id="queryByDate" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        where black_date = #{date} and delete_flag = #{deleteFlag}
+    </select>
+
+    <select id="queryBlackList" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        where black_type = #{blackType} and delete_flag = #{deleteFlag}
+    </select>
+
+    <insert id="batchInsert">
+        insert into gr_publish_black_record (oid, create_time, create_user, update_time, update_user, delete_flag,
+            black_type, week_code, begin_time, end_time, black_date)
+        values
+        <foreach collection ="list" item="item" index= "index" separator =",">
+            (
+                #{item.oid}, #{item.createTime}, #{item.createUser}, #{item.updateTime}, #{item.updateUser}, #{item.deleteFlag},
+                #{item.blackType},#item.{weekCode}, #{item.beginTime}, #{item.endTime}, #{item.blackDate}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GrPublishBlackListMap">
+        select
+          id, oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date
+        from gr_publish_black_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                and update_user = #{updateUser}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+            <if test="blackType != null and blackType != ''">
+                and black_type = #{blackType}
+            </if>
+            <if test="weekCode != null">
+                and week_code = #{weekCode}
+            </if>
+            <if test="beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="blackDate != null">
+                and black_date = #{blackDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_publish_black_record(oid, create_time, create_user, update_time, update_user, delete_flag, black_type, week_code, begin_time, end_time, black_date)
+        values (#{oid}, #{createTime}, #{createUser}, #{updateTime}, #{updateUser}, #{deleteFlag}, #{blackType},
+        #{weekCode}, #{beginTime}, #{endTime}, #{blackDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update gr_publish_black_record
+        <set>
+            <if test="oid != null and oid != ''">
+                oid = #{oid},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null and updateUser != ''">
+                update_user = #{updateUser},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            <if test="blackType != null and blackType != ''">
+                black_type = #{blackType},
+            </if>
+            <if test="weekCode != null">
+                week_code = #{weekCode},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="blackDate != null">
+                black_date = #{blackDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from gr_publish_black_record where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrChangeMapper">
+
+    <resultMap id="BaseResultMap" type="com.choice.cloud.architect.groot.model.GrChange">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="oid" jdbcType="CHAR" property="oid" />
+        <result column="auditing_id" jdbcType="CHAR" property="auditingId" />
+        <result column="change_name" jdbcType="CHAR" property="changeName" />
+        <result column="app_id" jdbcType="CHAR" property="appId" />
+        <result column="app_code" jdbcType="VARCHAR" property="appCode" />
+        <result column="apollo_app_code" jdbcType="VARCHAR" property="apolloAppCode" />
+        <result column="app_name" jdbcType="VARCHAR" property="appName" />
+        <result column="gitlab_address" jdbcType="VARCHAR" property="gitlabAddress" />
+        <result column="branch_name" jdbcType="VARCHAR" property="branchName" />
+        <result column="clone_branch" jdbcType="VARCHAR" property="cloneBranch" />
+        <result column="belong_project" jdbcType="VARCHAR" property="belongProject" />
+        <result column="belong_changeset" jdbcType="VARCHAR" property="belongChangeset" />
+        <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+        <result column="delete_branch" jdbcType="INTEGER" property="deleteBranch" />
+        <result column="apollo_application_id" jdbcType="VARCHAR" property="apolloApplicationId" />
+        <result column="sprint_address" jdbcType="VARCHAR" property="sprintAddress" />
+        <result column="sprint_test_application_address" jdbcType="VARCHAR" property="sprintTestApplicationAddress" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="stage" jdbcType="VARCHAR" property="stage" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+        <result column="create_user" jdbcType="CHAR" property="createUser" />
+        <result column="operator_id" jdbcType="VARCHAR" property="operatorId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_user" jdbcType="CHAR" property="updateUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="iteration_id" jdbcType="VARCHAR" property="iterationId" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+      id, oid, change_name, auditing_id, app_id, app_code,apollo_app_code, app_name, gitlab_address, branch_name, clone_branch,
+      belong_project, belong_changeset, publish_time, delete_branch, apollo_application_id, iteration_id,
+      sprint_address, sprint_test_application_address, description, status, stage, delete_flag,
+      create_user, operator_id, create_time, update_user, update_time,version
+    </sql>
+
+
+    <delete id="delete" parameterType="java.lang.Integer">
+      delete from gr_change
+      where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+    <insert id="insert" parameterType="com.choice.cloud.architect.groot.model.GrChange">
+      insert into gr_change (oid,auditing_id, change_name,
+        app_id, app_code, apollo_app_code, app_name, gitlab_address,
+        branch_name, clone_branch,
+      belong_project, belong_changeset, publish_time, delete_branch,
+      apollo_application_id, sprint_address,
+        sprint_test_application_address, description,
+        status,stage, delete_flag, create_user, operator_id,
+        create_time, update_user, update_time,version,iteration_id
+        )
+      values ( #{oid,jdbcType=CHAR},#{auditingId}, #{changeName,jdbcType=CHAR},
+        #{appId,jdbcType=CHAR},#{appCode,jdbcType=VARCHAR},#{apolloAppCode,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{gitlabAddress,jdbcType=VARCHAR},
+        #{branchName,jdbcType=VARCHAR},
+        #{cloneBranch,jdbcType=VARCHAR},#{belongProject,jdbcType=VARCHAR},#{belongChangeset,jdbcType=VARCHAR},
+        #{publishTime,jdbcType=TIMESTAMP},#{deleteBranch,jdbcType=INTEGER},
+         #{apolloApplicationId,jdbcType=VARCHAR}, #{sprintAddress,jdbcType=VARCHAR},
+        #{sprintTestApplicationAddress,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},#{stage}, #{deleteFlag,jdbcType=INTEGER}, #{createUser,jdbcType=CHAR}, #{operatorId, jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{version,jdbcType=INTEGER}, #{iterationId}
+        )
+    </insert>
+
+
+    <insert id="insertDynamic" parameterType="com.choice.cloud.architect.groot.model.GrChange">
+        insert into gr_change
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="oid != null">
+                oid,
+            </if>
+            <if test="auditingId != null and auditingId != ''">
+                auditing_id,
+            </if>
+            <if test="changeName != null">
+                change_name,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="appCode != null and appCode !=''">
+                app_code,
+            </if>
+            <if test="apolloAppCode != null and apolloAppCode !=''">
+                apollo_app_code,
+            </if>
+            <if test="appName != null">
+                app_name,
+            </if>
+            <if test="gitlabAddress != null">
+                gitlab_address,
+            </if>
+            <if test="branchName != null">
+                branch_name,
+            </if>
+            <if test="cloneBranch != null and cloneBranch != ''">
+                clone_branch,
+            </if>
+            <if test="belongProject != null and cloneBranch != ''">
+                belong_project,
+            </if>
+            <if test="belongChangeset != null and cloneBranch != ''">
+                belong_changeset,
+            </if>
+            <if test="publishTime != null">
+                publish_time,
+            </if>
+            <if test="deleteBranch != null">
+                delete_branch,
+            </if>
+            <if test="apolloApplicationId != null">
+                apollo_application_id,
+            </if>
+            <if test="sprintAddress != null">
+                sprint_address,
+            </if>
+            <if test="sprintTestApplicationAddress != null">
+                sprint_test_application_address,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="stage != null and stage != ''">
+                stage,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="iterationId != null">
+                iteration_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="oid != null">
+                #{oid,jdbcType=CHAR},
+            </if>
+            <if test="auditingId != null and auditingId != ''">
+                auditing_id,
+            </if>
+            <if test="changeName != null">
+                #{changeName,jdbcType=CHAR},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=CHAR},
+            </if>
+            <if test="appCode != null and appCode !=''">
+                #{appCode,jdbcType=VARCHAR},
+            </if>
+            <if test="apolloAppCode != null and apolloAppCode !=''">
+                #{apolloAppCode,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null">
+                #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="gitlabAddress != null">
+                #{gitlabAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="branchName != null">
+                #{branchName,jdbcType=VARCHAR},
+            </if>
+            <if test="cloneBranch != null and cloneBranch != ''">
+                #{cloneBranch,jdbcType=VARCHAR},
+            </if>
+            <if test="belongProject != null and cloneBranch != ''">
+                #{belongProject,jdbcType=VARCHAR},
+            </if>
+            <if test="belongChangeset != null and cloneBranch != ''">
+                #{belongChangeset,jdbcType=VARCHAR},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteBranch != null">
+                #{deleteBranch,jdbcType=INTEGER},
+            </if>
+            <if test="apolloApplicationId != null">
+                #{apolloApplicationId,jdbcType=VARCHAR},
+            </if>
+            <if test="sprintAddress != null">
+                #{sprintAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sprintTestApplicationAddress != null">
+                #{sprintTestApplicationAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="stage != null and stage != ''">
+                #{stage},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iterationId != null">
+                #{iterationId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateDynamic" parameterType="com.choice.cloud.architect.groot.model.GrChange">
+        update gr_change
+        <set>
+            <if test="changeName != null">
+                change_name = #{changeName,jdbcType=CHAR},
+            </if>
+            <if test="auditingId != null and auditingId != ''">
+                auditing_id = #{auditingId},
+            </if>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=CHAR},
+            </if>
+            <if test="appCode != null and appCode !=''">
+                app_code = #{appCode},
+            </if>
+            <if test="apolloAppCode != null and apolloAppCode !=''">
+                apollo_app_code = #{apolloAppCode},
+            </if>
+            <if test="appName != null">
+                app_name = #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="gitlabAddress != null">
+                gitlab_address = #{gitlabAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="branchName != null">
+                branch_name = #{branchName,jdbcType=VARCHAR},
+            </if>
+            <if test="cloneBranch != null  and cloneBranch != ''">
+                clone_branch = #{cloneBranch},
+            </if>
+            <if test="belongProject != null and cloneBranch != ''">
+                belong_project = #{belongProject},
+            </if>
+            <if test="belongChangeset != null and cloneBranch != ''">
+                belong_changeset = #{belongChangeset},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="deleteBranch != null">
+                delete_branch = #{deleteBranch},
+            </if>
+            <if test="apolloApplicationId != null">
+                apollo_application_id = #{apolloApplicationId,jdbcType=VARCHAR},
+            </if>
+            <if test="sprintAddress != null">
+                sprint_address = #{sprintAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sprintTestApplicationAddress != null">
+                sprint_test_application_address = #{sprintTestApplicationAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="stage != null and stage != ''">
+                stage = #{stage,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=CHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="iterationId != null">
+                iteration_id = #{iterationId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where oid = #{oid,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="update" parameterType="com.choice.cloud.architect.groot.model.GrChange">
+      update gr_change
+      set oid = #{oid,jdbcType=CHAR},
+        change_name = #{changeName,jdbcType=CHAR},
+        auditing_id = #{auditingId},
+        app_id = #{appId,jdbcType=CHAR},
+        app_code = #{appCode,jdbcType=VARCHAR},
+        apollo_app_code = #{apolloAppCode,jdbcType=VARCHAR},
+        app_name = #{appName,jdbcType=VARCHAR},
+        gitlab_address = #{gitlabAddress,jdbcType=VARCHAR},
+        branch_name = #{branchName,jdbcType=VARCHAR},
+        clone_branch = #{cloneBranch},
+        belong_project = #{belongProject},
+        belong_changeset = #{belongChangeset},
+        publish_time = #{publishTime},
+        delete_branch = #{deleteBranch},
+        apollo_application_id = #{apolloApplicationId,jdbcType=VARCHAR},
+        sprint_address = #{sprintAddress,jdbcType=VARCHAR},
+        sprint_test_application_address = #{sprintTestApplicationAddress,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+        stage = #{stage,jdbcType=VARCHAR},
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+        create_user = #{createUser,jdbcType=CHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_user = #{updateUser,jdbcType=CHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_change
+        where oid = #{oid}
+        and delete_flag = 0
+    </select>
+
+
+    <sql id="findPageWithWhere">
+        <where>
+            <if test="id != null" >
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="oid != null" >
+                and oid = #{oid,jdbcType=CHAR}
+            </if>
+            <if test="auditingId != null and auditingId != ''">
+                and auditing_id = #{auditingId}
+            </if>
+            <if test="changeName != null" >
+                and change_name = #{changeName,jdbcType=CHAR}
+            </if>
+            <if test="appId != null" >
+                and app_id = #{appId,jdbcType=CHAR}
+            </if>
+            <if test="appCode != null and appCode !=''">
+                and app_code = #{appCode,jdbcType=VARCHAR}
+            </if>
+            <if test="apolloAppCode != null and apolloAppCode !=''">
+                and apollo_app_code = #{apolloAppCode,jdbcType=VARCHAR}
+            </if>
+            <if test="appName != null and appName != ''" >
+                and app_name = #{appName,jdbcType=VARCHAR}
+            </if>
+            <if test="gitlabAddress != null and gitlabAddress != ''" >
+                and gitlab_address = #{gitlabAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="branchName != null and branchName != ''" >
+                and branch_name = #{branchName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="cloneBranch != null and cloneBranch != ''">
+                and clone_branch = #{cloneBranch}
+            </if>
+            <if test="belongProject != null and cloneBranch != ''">
+                and belong_project = #{belongProject}
+            </if>
+            <if test="belongChangeset != null and cloneBranch != ''">
+                and belong_changeset = #{belongChangeset}
+            </if>
+            <if test="publishTime != null">
+                and publish_time = #{publishTime}
+            </if>
+            <if test="deleteBranch != null">
+                and delete_branch = #{deleteBranch}
+            </if>
+
+            <if test="apolloApplicationId != null and apolloApplicationId != ''" >
+                and apollo_application_id = #{apolloApplicationId,jdbcType=VARCHAR}
+            </if>
+            <if test="sprintAddress != null and sprintAddress != ''" >
+                and sprint_address = #{sprintAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="sprintTestApplicationAddress != null and sprintTestApplicationAddress != ''" >
+                and sprint_test_application_address = #{sprintTestApplicationAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null" >
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="stage != null and stage != ''" >
+                and stage = #{stage,jdbcType=VARCHAR}
+            </if>
+            <if test="deleteFlag != null" >
+                and delete_flag = #{deleteFlag,jdbcType=INTEGER}
+            </if>
+            <if test="createUser != null" >
+                and create_user = #{createUser,jdbcType=CHAR}
+            </if>
+            <if test="operatorId != null">
+                and operator_Id = #{operatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null" >
+                and update_user = #{updateUser,jdbcType=CHAR}
+            </if>
+            <if test="updateTime != null" >
+                and update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="searchValue != null and searchValue != ''">
+                and (change_name like concat(#{searchValue},"%") or app_code like concat(#{searchValue},"%"))
+            </if>
+            <if test="null != ids and ids.size > 0">
+                and oid in
+                <foreach collection="ids" item="id" open="(" separator=","  close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrChange">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_change
+        <include refid="findPageWithWhere"/>
+        order by id desc
+    </select>
+
+    <select id="list" resultType="com.choice.cloud.architect.groot.model.GrChange">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_change
+        <include refid="findPageWithWhere"/>
+    </select>
+
+    <update id="linkPublishAudit">
+        update gr_change
+        set auditing_id = #{publishAuditId}
+        <where>
+            oid = #{changeId}
+            and auditing_id is null
+        </where>
+    </update>
+
+    <update id="unLinkPublishAudit">
+        update gr_change
+        set auditing_id = null
+        <where>
+            oid = #{changeId}
+            and auditing_id = #{publishAuditId}
+        </where>
+    </update>
+
+    <!-- 修改变更单状态 -->
+    <update id="updateChangeStatus">
+        update gr_change
+        set status = #{status},
+            update_user = #{updateUser},
+            update_time = #{updateTime}
+        where
+            oid = #{oid}
+    </update>
+
+    <!-- 修改变更单阶段 -->
+    <update id="updateChangeStage">
+        update gr_change
+        set stage = #{stage},
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_user = #{updateUser},
+            update_time = #{updateTime}
+        where
+            oid = #{oid}
+    </update>
+
+    <select id="selectByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  gr_change
+        <where>
+            <if test="null != ids and ids.size > 0">
+                and oid in
+                <foreach collection="ids" item="id" open="(" separator=","  close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    
+    <select id="countByStatus" resultType="java.lang.Integer">
+        select count(*) from gr_change where status = #{status} and delete_flag = #{deleteFlag}
+    </select>
+
+</mapper>

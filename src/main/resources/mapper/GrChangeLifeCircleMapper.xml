@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.choice.cloud.architect.groot.dao.GrChangeLifeCircleMapper">
+
+    <resultMap type="com.choice.cloud.architect.groot.model.GrChangeLifeCircle" id="GrChangeLifeCircleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="changeId" column="change_id" jdbcType="VARCHAR"/>
+        <result property="changeName" column="change_name" jdbcType="VARCHAR"/>
+        <result property="project" column="project" jdbcType="VARCHAR"/>
+        <result property="appCode" column="app_code" jdbcType="VARCHAR"/>
+        <result property="appName" column="app_name" jdbcType="VARCHAR"/>
+        <result property="envType" column="env_type" jdbcType="VARCHAR"/>
+        <result property="envCode" column="env_code" jdbcType="VARCHAR"/>
+        <result property="envName" column="env_name" jdbcType="VARCHAR"/>
+        <result property="operateType" column="operate_type" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="operateTime" column="operate_time" jdbcType="TIMESTAMP"/>
+        <result property="operateResult" column="operate_result" jdbcType="VARCHAR"/>
+        <result property="relOrderType" column="rel_order_type" jdbcType="VARCHAR"/>
+        <result property="relOrderId" column="rel_order_id" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GrChangeLifeCircleMap">
+        select
+          id, oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type, operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag
+        from gr_change_life_circle
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GrChangeLifeCircleMap">
+        select
+          id, oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type, operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag
+        from gr_change_life_circle
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GrChangeLifeCircleMap">
+        select
+          id, oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type, operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag
+        from gr_change_life_circle
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="oid != null and oid != ''">
+                and oid = #{oid}
+            </if>
+            <if test="changeId != null and changeId != ''">
+                and change_id = #{changeId}
+            </if>
+            <if test="changeName != null and changeName != ''">
+                and change_name = #{changeName}
+            </if>
+            <if test="project != null and project != ''">
+                and project = #{project}
+            </if>
+            <if test="appCode != null and appCode != ''">
+                and app_code = #{appCode}
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name = #{appName}
+            </if>
+            <if test="envType != null and envType != ''">
+                and env_type = #{envType}
+            </if>
+            <if test="envCode != null and envCode != ''">
+                and env_code = #{envCode}
+            </if>
+            <if test="envName != null and envName != ''">
+                and env_name = #{envName}
+            </if>
+            <if test="operateType != null and operateType != ''">
+                and operate_type = #{operateType}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="operateTime != null">
+                and operate_time = #{operateTime}
+            </if>
+            <if test="operateResult != null and operateResult != ''">
+                and operate_result = #{operateResult}
+            </if>
+            <if test="relOrderType != null and relOrderType != ''">
+                and rel_order_type = #{relOrderType}
+            </if>
+            <if test="relOrderId != null and relOrderId != ''">
+                and rel_order_id = #{relOrderId}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and create_user = #{createUser}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into gr_change_life_circle(oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type, operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag)
+        values (#{oid}, #{changeId}, #{changeName}, #{project}, #{appCode}, #{appName}, #{envType}, #{envCode}, #{envName}, #{operateType}, #{operator}, #{operateTime}, #{operateResult}, #{relOrderType}, #{relOrderId}, #{createUser}, #{createTime}, #{deleteFlag})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update gr_change_life_circle
+        <set>
+            <if test="oid != null and oid != ''">
+                oid = #{oid},
+            </if>
+            <if test="changeId != null and changeId != ''">
+                change_id = #{changeId},
+            </if>
+            <if test="changeName != null and changeName != ''">
+                change_name = #{changeName},
+            </if>
+            <if test="project != null and project != ''">
+                project = #{project},
+            </if>
+            <if test="appCode != null and appCode != ''">
+                app_code = #{appCode},
+            </if>
+            <if test="appName != null and appName != ''">
+                app_name = #{appName},
+            </if>
+            <if test="envType != null and envType != ''">
+                env_type = #{envType},
+            </if>
+            <if test="envCode != null and envCode != ''">
+                env_code = #{envCode},
+            </if>
+            <if test="envName != null and envName != ''">
+                env_name = #{envName},
+            </if>
+            <if test="operateType != null and operateType != ''">
+                operate_type = #{operateType},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="operateTime != null">
+                operate_time = #{operateTime},
+            </if>
+            <if test="operateResult != null and operateResult != ''">
+                operate_result = #{operateResult},
+            </if>
+            <if test="relOrderType != null and relOrderType != ''">
+                rel_order_type = #{relOrderType},
+            </if>
+            <if test="relOrderId != null and relOrderId != ''">
+                rel_order_id = #{relOrderId},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                create_user = #{createUser},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from gr_change_life_circle where id = #{id}
+    </delete>
+
+    <select id="listWithPage" resultType="com.choice.cloud.architect.groot.model.GrChangeLifeCircle">
+        select
+        id, oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type,
+        operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag
+        from gr_change_life_circle
+        where delete_flag = #{deleteFlag}
+        <if test="envType != null and envType !='' ">
+            and env_type = #{envType}
+        </if>
+        and change_id = #{changeId}
+        order by id desc
+    </select>
+
+    <select id="list" resultType="com.choice.cloud.architect.groot.model.GrChangeLifeCircle">
+        select
+        id, oid, change_id, change_name, project, app_code, app_name, env_type, env_code, env_name, operate_type,
+        operator, operate_time, operate_result, rel_order_type, rel_order_id, create_user, create_time, delete_flag
+        from gr_change_life_circle
+        where delete_flag = #{deleteFlag} and env_type = #{envType} and change_id = #{changeId}
+        order by id desc limit #{limit}
+    </select>
+</mapper>
